@@ -1,10 +1,10 @@
 <?php
 
-namespace system\helpers;
+namespace Helper;
 
-require SYSTEM_DIR.DS.'libs/phpmailer/class.phpmailer.php';
-require SYSTEM_DIR.DS.'libs/phpmailer/class.smtp.php';
-require SYSTEM_DIR.DS.'libs/phpmailer/class.pop3.php';
+require ROOT_DIR.DS.'libs/phpmailer/class.phpmailer.php';
+require ROOT_DIR.DS.'libs/phpmailer/class.smtp.php';
+require ROOT_DIR.DS.'libs/phpmailer/class.pop3.php';
 
 class Email
 {

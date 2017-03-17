@@ -1,9 +1,9 @@
 <?php
 
-namespace system\helpers;
+namespace Helper;
 
-use system\Router;
-use system\helpers\Datetime;
+use System\Router;
+use Helper\Datetime;
 
 class Html
 {

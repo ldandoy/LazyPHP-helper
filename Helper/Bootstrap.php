@@ -1,8 +1,8 @@
 <?php
 
-namespace system\helpers;
+namespace Helper;
 
-use system\Router;
+use System\Router;
 
 define('BOOTSTRAP_ALERT_SUCCESS', 0);
 define('BOOTSTRAP_ALERT_INFO', 1);

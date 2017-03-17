@@ -1,6 +1,6 @@
 <?php
 
-namespace system\helpers;
+namespace Helper;
 
 class Datetime
 {

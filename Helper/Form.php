@@ -1,6 +1,6 @@
 <?php
 /**
- * File system\Form.php
+ * File Helper\Form.php
  *
  * @category System
  * @package  Netoverconsulting
@@ -9,7 +9,7 @@
  * @link     http://overconsulting.net
  */
 
-namespace system\helpers;
+namespace Helper;
 
 /**
  * Class gérant les Forms du site
