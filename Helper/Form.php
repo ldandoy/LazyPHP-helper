@@ -223,7 +223,7 @@ class Form
 
         return $html;
     }
-        $class = rtrim(' '.$this->class);
+        /*$class = rtrim(' '.$this->class);
         
         $errorClass = '';
         if($this->hasError())
@@ -258,7 +258,7 @@ class Form
         $html .=
                 '</div>'.
                 $this->getErrorHtml().
-            '</div>';
+            '</div>';*/
         
 
 
