@@ -203,64 +203,125 @@ class Form
 
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
-                '<div class="col-sm-1">';
+                '<label class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                '<div class="col-sm-10">'.
+                    '<label for="'.$params['id'].'" class="checkbox-inline">';
         if ($params['readOnly'] != '') {
             $html .=
-                    '<input value="1"'.$checked.' disabled="disabled" type="checkbox" class="form-control'.$params['class'].'" />'.
-                    '<input id="'.$params['id'].'" name="'.$params['name'].'" type="hidden" value="'.$params['value'].'" />';
+                        '<input value="1"'.$checked.' disabled="disabled" type="checkbox" class="'.$params['class'].'" />'.
+                        '<input id="'.$params['id'].'" name="'.$params['name'].'" type="hidden" value="'.$params['value'].'" />';
         } else {
             $html .=
-                    '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="form-control'.$params['class'].'" />';
+                        '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].'" />';
         }
         $html .=
-                '</div>'.
-                '<div class="col-sm-10">'.
-                    '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].' />'.
+                    '</label>'.
                     $params['errorHtml'].
                 '</div>'.
             '</div>';
 
         return $html;
     }
-        /*$class = rtrim(' '.$this->class);
-        
-        $errorClass = '';
-        if($this->hasError())
-        {
-            $errorClass = ' has-error';
-        }
-        
-        if($this->value == '1')
-        {
-            $checked = ' checked="checked"';
-        }
-        else
-        {
-            $checked = '';
-        }
-        
+
+    /**
+     * Generate input checkboxgroup
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function checkboxgroup($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $options = isset($params['options']) ? $params['options'] : array();
+
         $html =
-            '<div class="form-group form-group-sm'.$errorClass.'">'.
-                '<label for="'.$this->id.'" class="col-sm-2 control-label">'.$this->label.'</label>'.
-                '<div class="col-sm-1">';
-        if($this->readOnly || $this->form->readOnly)
-        {
+            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                '<div class="col-sm-10">';
+        foreach ($params['options'] as $option) {
+            if (is_array($params['value']) && in_array($option['value'], $params['value'])) {
+                $checked = ' checked="checked"';
+                $readOnlyValue = $option['value'];
+            } else {
+                $checked = '';
+                $readOnlyValue = '';
+            }
+            $inputId = $params['id'].'_'.$option['value'];
             $html .=
-                    '<input value="1"'.$checked.' disabled="disabled" type="checkbox" class="form-control'.$class.'" />'.
-                    '<input id="'.$this->id.'" name="'.$this->id.'" type="hidden" value="'.$this->value.'" />';
-        }
-        else
-        {
-            $html .=
-                    '<input id="'.$this->id.'" name="'.$this->id.'" value="1"'.$checked.' type="checkbox" class="form-control'.$class.'" />';
+                    '<label for="'.$inputId.'" class="checkbox-inline">';
+            if ($params['readOnly'] != '') {
+                $html .=
+                        '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'" />&nbsp;'.$option['label'];
+            } else {
+                $html .=
+                        '<input id="'.$inputId.'" name="'.$params['name'].'[]" value="'.$option['value'].'"'.$checked.' type="checkbox" class="'.$params['class'].'" />'.$option['label'];
+            }
+                $html .=
+                    '</label>';
+            if ($params['readOnly'] != '') {
+                $html .=
+                    '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'" />';
+            }
         }
         $html .=
+                    $params['errorHtml'].
                 '</div>'.
-                $this->getErrorHtml().
-            '</div>';*/
+            '</div>';
         
+        return $html;
+    }
 
+    /**
+     * Generate input radiogroup
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function radiogroup($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $options = isset($params['options']) ? $params['options'] : array();
+
+        $html =
+            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                '<div class="col-sm-10">';
+        foreach ($params['options'] as $option) {
+            if (is_array($params['value']) && in_array($option['value'], $params['value']) || $option['value'] == $params['value']) {
+                $checked = ' checked="checked"';
+                $readOnlyValue = $option['value'];
+            } else {
+                $checked = '';
+                $readOnlyValue = '';
+            }
+            $inputId = $params['id'].'_'.$option['value'];
+            $html .=
+                '<label for="'.$inputId.'" class="radio-inline">';
+            if ($params['readOnly'] != '') {
+                $html .=
+                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'" />&nbsp;'.$option['label'];
+            } else {
+                $html .=
+                    '<input id="'.$inputId.'" name="'.$params['name'].'" value="'.$option['value'].'"'.$checked.' type="radio" class="'.$params['class'].'" />'.$option['label'];
+            }
+            $html .=
+                '</label>';
+            if ($params['readOnly'] != '') {
+                $html .=
+                    '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'" />';
+            }
+        }
+        $html .=
+                    $params['errorHtml'].
+                '</div>'.
+            '</div>';
+        
+        return $html;
+    }
 
     /**
      * Generate input file
