@@ -154,12 +154,11 @@ class Bootstrap
             $class = '';
         }
         $class = ' class="btn btn-'.$type.$size.$class.'"';
-
         
         if ($url != '') {
             return '<a href="'.$url.'"'.$class.' title="'.$hint.'"'.$target.$id.$onclick.'>'.$content.'</a>';
         } else {
-            return '<button type="button" class="btn btn-'.$type.$size.$class.'" title="'.$hint.'"'.$id.$onclick.'>'.$content.'</button>';
+            return '<button type="button"'.$class.' title="'.$hint.'"'.$id.$onclick.'>'.$content.'</button>';
         }
     }
     
