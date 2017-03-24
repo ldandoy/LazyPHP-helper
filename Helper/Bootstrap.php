@@ -90,7 +90,7 @@ class Bootstrap
 
         $icon = isset($params['icon']) ? $params['icon'] : '';
         if ($icon != '') {
-            $icon = '<i class="fa fa-'.$icon.'"></i>&nbsp;';
+            $icon = '<i class="fa fa-'.$icon.'"></i>';
         }
         $content = $icon.$content;
 

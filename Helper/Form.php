@@ -212,7 +212,7 @@ class Form
                         '<input id="'.$params['id'].'" name="'.$params['name'].'" type="hidden" value="'.$params['value'].'" />';
         } else {
             $html .=
-                        '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].'" />';
+                        '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].'" />&nbsp;';
         }
         $html .=
                     '</label>'.

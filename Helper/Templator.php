@@ -48,7 +48,15 @@ class Templator
     {
         if (isset($attributes['options'])) {
             $options = $attributes['options'];
-            if (isset($params[$options])) {
+            if ($options[0] == '[') {
+                $a = explode(';', trim($options, '[]'));
+                $options = array();
+                foreach ($a as $v) {
+                    $b = explode(':', $v);
+                    $options[] = array('label' => $b[0], 'value' => $b[1]);
+                }
+                return $options;
+            } else if (isset($params[$options])) {
                 return $params[$options];
             } else {
                 return null;
@@ -204,7 +212,22 @@ class Templator
 
         if (!empty($matchesVar)) {
             foreach ($matchesVar as $v) {
-                $html = str_replace($v[0], $params[$v[1]], $html);
+                $model = $v[1];
+                if (strpos($model, '.') !== false) {
+                    $a = explode('.', $model, 2);
+                    if (isset($params[$a[0]])) {
+                        $obj = $params[$a[0]];
+                        $key = $a[1];
+                        $replace = isset($obj->$key) ? $obj->$key : '';
+                    } else {
+                        $replace = '';
+                    }
+                } else if (isset($params[$model])) {
+                    $replace = $params[$model];
+                } else {
+                    $replace = '';
+                }
+                $html = str_replace($v[0], $replace, $html);
             }
         }
 
