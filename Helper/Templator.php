@@ -95,6 +95,14 @@ class Templator
                     }
                 }
 
+                if ($tag == 'form_open') {
+                    if (isset($attributes['action']) && isset($params[$attributes['action']])) {
+                        $attributes['action'] = $params[$attributes['action']];
+                    } else {
+                        unset($attributes['action']);
+                    }
+                }
+
                 if ($tag == 'input_select' || $tag == 'input_radiogroup' || $tag == 'input_checkboxgroup') {
                     $options = $this->getOptionsForInput($attributes, $params);
                     if ($options !== null) {
@@ -128,6 +136,14 @@ class Templator
                         $replace = Html::table($attributes);
                         break;
 
+                    case 'form_open':
+                        $replace = Form::open($attributes);
+                        break;
+
+                    case 'form_close':
+                        $replace = Form::close($attributes);
+                        break;
+
                     case 'input_text':
                         $replace = Form::text($attributes);
                         break;
@@ -158,6 +174,10 @@ class Templator
 
                     case 'input_file':
                         $replace = Form::file($attributes);
+                        break;
+
+                    case 'input_image':
+                        $replace = Form::image($attributes);
                         break;
 
                     case 'input_submit':

@@ -35,7 +35,9 @@ class Form
         
         $name = isset($params['name']) ? $params['name'] : '';
         $p['name'] = $name;
-        $p['id'] = $name;
+
+        $id = isset($params['id']) ? $params['id'] : $name;
+        $p['id'] = $id;
 
         $p['label'] = isset($params['label']) ? $params['label'] : '';
 
@@ -77,6 +79,40 @@ class Form
         }
 
         return array_merge($params, $p);
+    }
+
+    /**
+     * Generate form open tag
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function open($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $formAction = isset($params['formAction']) ? $params['formAction'] : '';
+
+        $html = '<form id="'.$params['id'].'" method="post" action="'.$params['action'].'" class="form'.$params['class'].'" enctype="multipart/form-data">';
+
+        return $html;
+    }
+
+    /**
+     * Generate form close tag
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function close($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $html = '</form>';
+
+        return $html;
     }
 
     /**
@@ -341,6 +377,30 @@ class Form
                     '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' />'.
                     $params['errorHtml'].
                 '</div>'.
+            '</div>';
+
+        return $html;
+    }
+
+    /**
+     * Generate input file for image
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function image($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $html =
+            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                '<div class="col-sm-10">'.
+                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' />'.
+                    $params['errorHtml'].
+                '</div>'.
+                '<div>'.print_r($params['value'], true).'</div>'.
             '</div>';
 
         return $html;
