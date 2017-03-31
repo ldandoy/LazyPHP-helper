@@ -180,9 +180,20 @@ class Templator
                         $replace = Form::image($attributes);
                         break;
 
+                    case 'input_video':
+                        $replace = Form::video($attributes);
+                        break;
+
+                    case 'input_music':
+                        $replace = Form::music($attributes);
+                        break;
+
                     case 'input_submit':
                         $replace = Form::submit($attributes);
                         break;
+
+                    default:
+                        $replace = '';
                 }
 
                 $html = str_replace($v[0], $replace, $html);

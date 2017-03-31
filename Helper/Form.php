@@ -429,6 +429,52 @@ class Form
     }
 
     /**
+     * Generate input file for video
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function video($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $html =
+            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                '<div class="col-sm-10">'.
+                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' data-media-type="video" />'.
+                    $params['errorHtml'].
+                '</div>'.
+            '</div>';
+
+        return $html;
+    }
+
+    /**
+     * Generate input file for music
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function music($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $html =
+            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                '<div class="col-sm-10">'.
+                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' data-media-type="music" />'.
+                    $params['errorHtml'].
+                '</div>'.
+            '</div>';
+
+        return $html;
+    }
+
+    /**
      * Generate submit button
      *
      * @param mixed $params
