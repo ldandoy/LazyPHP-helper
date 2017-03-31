@@ -116,6 +116,38 @@ class Form
     }
 
     /**
+     * Generate form-group
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function formGroup($input, $params = array())
+    {
+        $params = self::parseParams($params);
+        if (!$params["label"] == "") {
+            $html =
+            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                '<div class="col-sm-10">'.
+                    $input.
+                    $params['errorHtml'].
+                '</div>'.
+            '</div>';
+        } else {
+            $html =
+            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<div class="col-sm-12">'.
+                    $input.
+                    $params['errorHtml'].
+                '</div>'.
+            '</div>';
+        }
+
+        return $html;
+    }
+
+    /**
      * Generate input text
      *
      * @param mixed $params
@@ -126,14 +158,9 @@ class Form
     {
         $params = self::parseParams($params);
 
-        $html =
-            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
-                '<div class="col-sm-10">'.
-                    '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].' />'.
-                    $params['errorHtml'].
-                '</div>'.
-            '</div>';
+        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].' />';
+
+        $html = self::formGroup($input, $params);
 
         return $html;
     }
@@ -149,14 +176,9 @@ class Form
     {
         $params = self::parseParams($params);
 
-        $html =
-            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
-                '<div class="col-sm-10">'.
-                    '<input type="password" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].' />'.
-                    $params['errorHtml'].
-                '</div>'.
-            '</div>';
+        $input = '<input type="password" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].' />';
+
+        $html = self::formGroup($input, $params);
 
         return $html;
     }
@@ -427,7 +449,9 @@ class Form
         
         $html =
             '<div class="form-group form-group-sm pull-right">'.
-                '<button id="'.$params['id'].'" name="'.$params['name'].'"'.$disabled.' type="submit" value="'.$params['value'].'" form="'.$formId.'" class="btn'.$params['class'].'">'.$params['label'].'</button>'.
+                '<div class="col-sm-12">'.
+                    '<button id="'.$params['id'].'" name="'.$params['name'].'"'.$disabled.' type="submit" value="'.$params['value'].'" form="'.$formId.'" class="btn'.$params['class'].'">'.$params['label'].'</button>'.
+                '</div>'.
             '</div>'.
             '<div class="clearfix"></div>';
 
