@@ -26,6 +26,54 @@ class Html
     }
 
     /**
+     * Generate title tag
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function title($params = array())
+    {
+        $params = self::parseParams($params);
+        $content = isset($params['content']) ? $params['content'] : '';
+
+        $html = '<h1 class="page-header">'.$content.'</h1>';
+
+        return $html;
+    }
+
+    /**
+     * Generate title tag
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function articleslist($params = array())
+    {
+        $params = self::parseParams($params);
+        // var_dump($params);
+        
+        $html = "";
+        foreach ($params['articles'] as $k => $article) {
+            $html .= '<div class="row">';
+            $html .= '<div class="col-lg-12">';
+            $html .= '<h2>'.$article->title.'</h2>';
+            $html .= '</div>';
+            $html .= '<div class="col-lg-12">';
+            $html .= '<p>'.$article->content.'</p>';
+            $html .= '<p align="right"><a href="/articles/show/'.$article->id.'">Lire plus &rarr;</a></p>';
+            $html .= '</div>';
+            $html .= '</div>';
+            if ($k+1 != count($params['articles'])) {
+                $html .= '<hr />';
+            }
+        }
+
+        return $html;
+    }
+
+    /**
      * Generate link tag
      *
      * @param mixed $params

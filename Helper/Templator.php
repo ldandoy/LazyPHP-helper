@@ -81,7 +81,7 @@ class Templator
             foreach ($matchesFunctions as $v) {
                 $data = $parser->parse($v[1]);
 
-                //echo '<pre>'.print_r($data,true).'</pre>';
+                // echo '<pre>'.print_r($data,true).'</pre>';
 
                 $tag = $data['tag'];
                 $attributes = $data['attributes'];
@@ -123,6 +123,16 @@ class Templator
 
                     case 'image':
                         $replace = Html::image($attributes);
+                        break;
+
+                    case 'title':
+                        $replace = Html::title($attributes);
+                        break;
+
+                    case 'articles_list':
+                        $attributes['articles'] = isset($params['articles']) ? $params['articles'] : null;
+                        
+                        $replace = Html::articleslist($attributes);
                         break;
 
                     case 'table':
