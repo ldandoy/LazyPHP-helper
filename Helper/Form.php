@@ -124,24 +124,23 @@ class Form
      */
     public static function formGroup($input, $params = array())
     {
-        $params = self::parseParams($params);
-        if (!$params["label"] == "") {
+        if (isset($params['label'])) {
             $html =
-            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
-                '<div class="col-sm-10">'.
-                    $input.
-                    $params['errorHtml'].
-                '</div>'.
-            '</div>';
+                '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                    '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                    '<div class="col-sm-10">'.
+                        $input.
+                        $params['errorHtml'].
+                    '</div>'.
+                '</div>';
         } else {
             $html =
-            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<div class="col-sm-12">'.
-                    $input.
-                    $params['errorHtml'].
-                '</div>'.
-            '</div>';
+                '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                    '<div class="col-sm-12">'.
+                        $input.
+                        $params['errorHtml'].
+                    '</div>'.
+                '</div>';
         }
 
         return $html;
@@ -197,14 +196,9 @@ class Form
         $cols = isset($params['cols']) ? $params['cols'] : '';
         $rows = isset($params['rows']) ? $params['rows'] : '5';
 
-        $html =
-            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
-                '<div class="col-sm-10">'.
-                    '<textarea id="'.$params['id'].'" name="'.$params['name'].'" cols="'.$cols.'" rows="'.$rows.'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].'>'.$params['value'].'</textarea>'.
-                    $params['errorHtml'].
-                '</div>'.
-            '</div>';
+        $input = '<textarea id="'.$params['id'].'" name="'.$params['name'].'" cols="'.$cols.'" rows="'.$rows.'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].'>'.$params['value'].'</textarea>';
+
+        $html = self::formGroup($input, $params);
 
         return $html;
     }
@@ -224,24 +218,20 @@ class Form
 
         $multiple = isset($params['multiple']) && $params['multiple'] == '1' ? ' multiple="multiple"' : '';
 
-        $html =
-            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
-                '<div class="col-sm-10">'.
-                    '<select id="'.$params['id'].'" name="'.$params['name'].'"'.$multiple.' class="form-control'.$params['class'].'">';
+        $input =
+            '<select id="'.$params['id'].'" name="'.$params['name'].'"'.$multiple.' class="form-control'.$params['class'].'">';
         foreach ($options as $option) {
             if ((is_array($params['value']) && in_array($option['value'], $params['value'])) || $option['value'] == $params['value']) {
                 $selected = ' selected="selected"';
             } else {
                 $selected = '';
             }
-            $html .= '<option value="'.$option['value'].'"'.$selected.'>'.$option['label'].'</option>';
+            $input .= '<option value="'.$option['value'].'"'.$selected.'>'.$option['label'].'</option>';
         }
-        $html .=
-                    '</select>'.
-                '</div>'.
-                $params['errorHtml'].
-            '</div>';
+        $input .=
+            '</select>';
+
+        $html = self::formGroup($input, $params);
 
         return $html;
     }
@@ -259,24 +249,20 @@ class Form
 
         $checked = $params['value'] == '1' ? ' checked="checked"' : '';
 
-        $html =
-            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<label class="col-sm-2 control-label">'.$params['label'].'</label>'.
-                '<div class="col-sm-10">'.
-                    '<label for="'.$params['id'].'" class="checkbox-inline">';
+        $input =
+            '<label for="'.$params['id'].'" class="checkbox-inline">';
         if ($params['readOnly'] != '') {
-            $html .=
-                        '<input value="1"'.$checked.' disabled="disabled" type="checkbox" class="'.$params['class'].'" />'.
-                        '<input id="'.$params['id'].'" name="'.$params['name'].'" type="hidden" value="'.$params['value'].'" />';
+            $input .=
+                '<input value="1"'.$checked.' disabled="disabled" type="checkbox" class="'.$params['class'].'" />'.
+                '<input id="'.$params['id'].'" name="'.$params['name'].'" type="hidden" value="'.$params['value'].'" />';
         } else {
-            $html .=
-                        '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].'" />&nbsp;';
+            $input .=
+                '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].'" />&nbsp;';
         }
-        $html .=
-                    '</label>'.
-                    $params['errorHtml'].
-                '</div>'.
-            '</div>';
+        $input .=
+            '</label>';
+
+        $html = self::formGroup($input, $params);
 
         return $html;
     }

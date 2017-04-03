@@ -52,7 +52,6 @@ class Html
     public static function articleslist($params = array())
     {
         $params = self::parseParams($params);
-        // var_dump($params);
         
         $html = "";
         foreach ($params['articles'] as $k => $article) {
