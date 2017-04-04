@@ -408,7 +408,6 @@ class Form
                     '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' />'.
                     $params['errorHtml'].
                 '</div>'.
-                '<div>'.print_r($params['value'], true).'</div>'.
             '</div>';
 
         return $html;
@@ -438,13 +437,13 @@ class Form
     }
 
     /**
-     * Generate input file for music
+     * Generate input file for audio
      *
      * @param mixed $params
      *
      * @return string
      */
-    public static function music($params = array())
+    public static function audio($params = array())
     {
         $params = self::parseParams($params);
 
@@ -452,7 +451,7 @@ class Form
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
-                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' data-media-type="music" />'.
+                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' data-media-type="audio" />'.
                     $params['errorHtml'].
                 '</div>'.
             '</div>';
