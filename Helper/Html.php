@@ -76,6 +76,11 @@ class Html
      * Generate link tag
      *
      * @param mixed $params
+     *      content
+     *      icon
+     *      url
+     *      new_window 0 | 1
+     *      confirmation
      *
      * @return string
      */
@@ -88,6 +93,12 @@ class Html
         $target = isset($params['new_window']) && $params['new_window'] == '1' ? ' target="_blank"' : '';
 
         $content = isset($params['content']) ? $params['content'] : '';
+
+        $icon = isset($params['icon']) ? $params['icon'] : '';
+        if ($icon != '') {
+            $icon = '<i class="fa fa-'.$icon.'"></i>';
+        }
+        $content = $icon.$content;
 
         $html = '<a href="'.$url.'"'.$target.$params['id'].$params['class'].'>'.$content.'</a>';
 
