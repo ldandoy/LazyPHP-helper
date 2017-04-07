@@ -97,6 +97,9 @@ class Html
         $icon = isset($params['icon']) ? $params['icon'] : '';
         if ($icon != '') {
             $icon = '<i class="fa fa-'.$icon.'"></i>';
+            if ($content != '') {
+                $icon .= '&nbsp;';
+            }
         }
         $content = $icon.$content;
 

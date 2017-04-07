@@ -91,6 +91,9 @@ class Bootstrap
         $icon = isset($params['icon']) ? $params['icon'] : '';
         if ($icon != '') {
             $icon = '<i class="fa fa-'.$icon.'"></i>';
+            if ($content != '') {
+                $icon .= '&nbsp;';
+            }
         }
         $content = $icon.$content;
 
@@ -167,7 +170,7 @@ class Bootstrap
      * @param mixed $tabs
      * @param bool $fade
      */
-    static public function tabs($tabs = array(), $fade = false)
+    public static function tabs($tabs = array(), $fade = false)
     {
         $tabNav = '';
         $tabContent = '';
