@@ -147,6 +147,22 @@ class Form
     }
 
     /**
+     * Generate input hidden
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function hidden($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $html = '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" />';
+
+        return $html;
+    }
+
+    /**
      * Generate input text
      *
      * @param mixed $params
