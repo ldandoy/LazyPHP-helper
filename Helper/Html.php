@@ -61,7 +61,7 @@ class Html
             $html .= '</div>';
             $html .= '<div class="col-lg-12">';
             $html .= '<p>'.$article->content.'</p>';
-            $html .= '<p align="right"><a href="/articles/show/'.$article->id.'">Lire plus &rarr;</a></p>';
+            $html .= '<p align="right"><a href="/article/'.$article->id.'">Lire plus &rarr;</a></p>';
             $html .= '</div>';
             $html .= '</div>';
             if ($k+1 != count($params['articles'])) {
