@@ -513,7 +513,7 @@ class Form
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
-                    '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="xxxx" class="form-control" />'.
+                    '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="" class="form-control" />'.
                     '<div class="input-group">'.
                         '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly" />'.
                         '<span class="input-group-btn">'.
