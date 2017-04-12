@@ -82,6 +82,27 @@ class Form
     }
 
     /**
+     * Parse and check common params
+     *
+     * @param mixed $params
+     * @param string[] $excludedAttributes
+     *
+     * @return string
+     */
+/*    private static function otherAttributes($params = array(), $excludedAttributes = array())
+    {
+        $attributes = '';
+
+        foreach ($params as $k => $v) {
+            if (!in_array($k, $excludedAttributes)) {
+                $attributes .= ' '.$k.'="'.$v.'"';
+            }
+        }
+
+        return $attributes;
+    }*/
+
+    /**
      * Generate form open tag
      *
      * @param mixed $params
@@ -172,6 +193,8 @@ class Form
     public static function text($params = array())
     {
         $params = self::parseParams($params);
+
+        // $otherAttributes = self::otherAttributes($params, array('id', 'name', 'value', 'class', 'placeholder', 'readonly', 'autocomplete'));
 
         $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].' />';
 
@@ -471,6 +494,36 @@ class Form
                     $params['errorHtml'].
                 '</div>'.
             '</div>';
+
+        return $html;
+    }
+
+    /**
+     * Generate input for select a media
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function media($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $html =
+            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
+                '<div class="col-sm-10">'.
+                    '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="xxxx" class="form-control" />'.
+                    '<div class="input-group">'.
+                        '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly" />'.
+                        '<span class="input-group-btn">'.
+                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="#'.$params['id'].'" data-input-display="#'.$params['id'].'_display"><i class="fa fa-picture-o"></i></button>'.
+                        '</span>'.
+                    '</div>'.
+                    $params['errorHtml'].
+                '</div>'.
+            '</div>';
+
 
         return $html;
     }
