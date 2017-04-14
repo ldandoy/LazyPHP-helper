@@ -22,6 +22,21 @@ namespace Helper;
  */
 class Form
 {
+    private static $commonParams = array(
+        'name',
+        'id',
+        'label',
+        'class',
+        'value',
+        'model',
+        'autocomplete',
+        'placeholder',
+        'readOnly',
+        'error',
+        'errorClass',
+        'errorHtml'
+    );
+
     /**
      * Parse and check common params
      *
@@ -89,9 +104,14 @@ class Form
      *
      * @return string
      */
-/*    private static function otherAttributes($params = array(), $excludedAttributes = array())
+    private static function otherAttributes($params = array(), $excludedAttributes = array())
     {
         $attributes = '';
+
+        $excludedAttributes = array_merge(
+            self::$commonParams,
+            $excludedAttributes
+        );
 
         foreach ($params as $k => $v) {
             if (!in_array($k, $excludedAttributes)) {
@@ -100,7 +120,7 @@ class Form
         }
 
         return $attributes;
-    }*/
+    }
 
     /**
      * Generate form open tag
@@ -143,7 +163,7 @@ class Form
      *
      * @return string
      */
-    public static function formGroup($input, $params = array())
+    private static function formGroup($input, $params = array())
     {
         if (isset($params['label'])) {
             $html =
@@ -178,6 +198,8 @@ class Form
     {
         $params = self::parseParams($params);
 
+        $otherAttributes = self::otherAttributes($params);
+
         $html = '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" />';
 
         return $html;
@@ -194,9 +216,9 @@ class Form
     {
         $params = self::parseParams($params);
 
-        // $otherAttributes = self::otherAttributes($params, array('id', 'name', 'value', 'class', 'placeholder', 'readonly', 'autocomplete'));
+        $otherAttributes = self::otherAttributes($params);
 
-        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].' />';
+        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
 
         $html = self::formGroup($input, $params);
 
@@ -214,7 +236,9 @@ class Form
     {
         $params = self::parseParams($params);
 
-        $input = '<input type="password" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].' />';
+        $otherAttributes = self::otherAttributes($params);
+
+        $input = '<input type="password" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
 
         $html = self::formGroup($input, $params);
 
@@ -235,7 +259,9 @@ class Form
         $cols = isset($params['cols']) ? $params['cols'] : '';
         $rows = isset($params['rows']) ? $params['rows'] : '5';
 
-        $input = '<textarea id="'.$params['id'].'" name="'.$params['name'].'" cols="'.$cols.'" rows="'.$rows.'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].'>'.$params['value'].'</textarea>';
+        $otherAttributes = self::otherAttributes($params, array('cols', 'rows'));
+
+        $input = '<textarea id="'.$params['id'].'" name="'.$params['name'].'" cols="'.$cols.'" rows="'.$rows.'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$otherAttributes.'>'.$params['value'].'</textarea>';
 
         $html = self::formGroup($input, $params);
 
@@ -257,8 +283,10 @@ class Form
 
         $multiple = isset($params['multiple']) && $params['multiple'] == '1' ? ' multiple="multiple"' : '';
 
+        $otherAttributes = self::otherAttributes($params, array('options', 'multiple'));
+
         $input =
-            '<select id="'.$params['id'].'" name="'.$params['name'].'"'.$multiple.' class="form-control'.$params['class'].'">';
+            '<select id="'.$params['id'].'" name="'.$params['name'].'"'.$multiple.' class="form-control'.$params['class'].'"'.$otherAttributes.'>';
         foreach ($options as $option) {
             if ((is_array($params['value']) && in_array($option['value'], $params['value'])) || $option['value'] == $params['value']) {
                 $selected = ' selected="selected"';
@@ -288,15 +316,17 @@ class Form
 
         $checked = $params['value'] == '1' ? ' checked="checked"' : '';
 
+        $otherAttributes = self::otherAttributes($params);
+
         $input =
             '<label for="'.$params['id'].'" class="checkbox-inline">';
         if ($params['readOnly'] != '') {
             $input .=
                 '<input value="1"'.$checked.' disabled="disabled" type="checkbox" class="'.$params['class'].'" />'.
-                '<input id="'.$params['id'].'" name="'.$params['name'].'" type="hidden" value="'.$params['value'].'" />';
+                '<input id="'.$params['id'].'" name="'.$params['name'].'" type="hidden" value="'.$params['value'].'"'.$otherAttributes.' />';
         } else {
             $input .=
-                '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].'" />&nbsp;';
+                '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].'"'.$otherAttributes.' />&nbsp;';
         }
         $input .=
             '</label>';
@@ -319,10 +349,9 @@ class Form
 
         $options = isset($params['options']) ? $params['options'] : array();
 
-        $html =
-            '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
-                '<div class="col-sm-10">';
+        $otherAttributes = self::otherAttributes($params, array('options'));
+
+        $input = '';
         foreach ($params['options'] as $option) {
             if (is_array($params['value']) && in_array($option['value'], $params['value'])) {
                 $checked = ' checked="checked"';
@@ -332,27 +361,26 @@ class Form
                 $readOnlyValue = '';
             }
             $inputId = $params['id'].'_'.$option['value'];
-            $html .=
-                    '<label for="'.$inputId.'" class="checkbox-inline">';
+            $input .=
+                '<label for="'.$inputId.'" class="checkbox-inline">';
             if ($params['readOnly'] != '') {
-                $html .=
-                        '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'" />&nbsp;'.$option['label'];
+                $input .=
+                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'"'.$otherAttributes.' />&nbsp;'.$option['label'];
             } else {
-                $html .=
-                        '<input id="'.$inputId.'" name="'.$params['name'].'[]" value="'.$option['value'].'"'.$checked.' type="checkbox" class="'.$params['class'].'" />'.$option['label'];
+                $input .=
+                    '<input id="'.$inputId.'" name="'.$params['name'].'[]" value="'.$option['value'].'"'.$checked.' type="checkbox" class="'.$params['class'].'"'.$otherAttributes.' />&nbsp;'.$option['label'];
             }
-                $html .=
-                    '</label>';
+            $input .=
+                '</label>';
             if ($params['readOnly'] != '') {
-                $html .=
-                    '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'" />';
+                $input .= 
+                    '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'"'.$otherAttributes.' />';
             }
         }
-        $html .=
-                    $params['errorHtml'].
-                '</div>'.
-            '</div>';
+        $input .= $params['errorHtml'];
         
+        $html = self::formGroup($input, $params);
+
         return $html;
     }
 
@@ -368,6 +396,8 @@ class Form
         $params = self::parseParams($params);
 
         $options = isset($params['options']) ? $params['options'] : array();
+
+        $otherAttributes = self::otherAttributes($params, array('options'));
 
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
@@ -386,16 +416,16 @@ class Form
                 '<label for="'.$inputId.'" class="radio-inline">';
             if ($params['readOnly'] != '') {
                 $html .=
-                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'" />&nbsp;'.$option['label'];
+                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'"'.$otherAttributes.' />&nbsp;'.$option['label'];
             } else {
                 $html .=
-                    '<input id="'.$inputId.'" name="'.$params['name'].'" value="'.$option['value'].'"'.$checked.' type="radio" class="'.$params['class'].'" />'.$option['label'];
+                    '<input id="'.$inputId.'" name="'.$params['name'].'" value="'.$option['value'].'"'.$checked.' type="radio" class="'.$params['class'].'"'.$otherAttributes.' />'.$option['label'];
             }
             $html .=
                 '</label>';
             if ($params['readOnly'] != '') {
                 $html .=
-                    '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'" />';
+                    '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'"'.$otherAttributes.' />';
             }
         }
         $html .=
@@ -417,11 +447,13 @@ class Form
     {
         $params = self::parseParams($params);
 
+        $otherAttributes = self::otherAttributes($params);
+
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
-                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' />'.
+                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' />'.
                     $params['errorHtml'].
                 '</div>'.
             '</div>';
@@ -440,12 +472,15 @@ class Form
     {
         $params = self::parseParams($params);
 
+        $otherAttributes = self::otherAttributes($params);
+
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
-                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' />'.
+                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="image" />'.
                     $params['errorHtml'].
+                    '<img src="'.$params['value']->url.'" class="input-media-image" />'.
                 '</div>'.
             '</div>';
 
@@ -463,11 +498,13 @@ class Form
     {
         $params = self::parseParams($params);
 
+        $otherAttributes = self::otherAttributes($params);
+
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
-                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' data-media-type="video" />'.
+                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="video" />'.
                     $params['errorHtml'].
                 '</div>'.
             '</div>';
@@ -486,11 +523,13 @@ class Form
     {
         $params = self::parseParams($params);
 
+        $otherAttributes = self::otherAttributes($params);
+
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
-                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].' data-media-type="audio" />'.
+                    '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="audio" />'.
                     $params['errorHtml'].
                 '</div>'.
             '</div>';
@@ -509,15 +548,19 @@ class Form
     {
         $params = self::parseParams($params);
 
+        $mulitple = isset($params['mulitple']) ? $params['mulitple'] : 0;
+
+        $otherAttributes = self::otherAttributes($params, array('multiple'));
+
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
                     '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="" class="form-control" />'.
                     '<div class="input-group">'.
-                        '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly" />'.
+                        '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
                         '<span class="input-group-btn">'.
-                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="#'.$params['id'].'" data-input-display="#'.$params['id'].'_display"><i class="fa fa-picture-o"></i></button>'.
+                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="#'.$params['id'].'" data-input-display="#'.$params['id'].'_display" data-multiple="'.$mulitple.'"><i class="fa fa-picture-o"></i></button>'.
                         '</span>'.
                     '</div>'.
                     $params['errorHtml'].

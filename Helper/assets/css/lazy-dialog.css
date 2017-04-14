@@ -1,0 +1,50 @@
+.lazy-dialog {
+	background: rgba(0,0,0,0.15);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 30px;
+	z-index: 10000;
+}
+
+.lazy-dialog-content {
+	background: #fff;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.lazy-dialog-header {
+	position: relative;
+	padding: 10px;
+}
+
+.lazy-dialog-title {
+	text-align: center;
+	margin: 0;
+}
+
+.lazy-dialog-close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	color: #000;	
+}
+
+.lazy-dialog-close-button:hover {
+	color: #ccc;
+}
+
+.lazy-dialog-footer {
+	padding: 10px;
+}
+
+.lazy-dialog-footer {
+	padding: 10px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
