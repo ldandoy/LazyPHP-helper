@@ -22,6 +22,35 @@ define('BOOTSTRAP_MODAL_SIZE_SM', 2);
 
 class Bootstrap
 {
+    private static $commonParams = array(
+    );
+
+    /**
+     * Extract "others" attributes
+     *
+     * @param mixed $params
+     * @param string[] $excludedAttributes
+     *
+     * @return string
+     */
+    private static function otherAttributes($params = array(), $excludedAttributes = array())
+    {
+        $attributes = '';
+
+        $excludedAttributes = array_merge(
+            self::$commonParams,
+            $excludedAttributes
+        );
+
+        foreach ($params as $k => $v) {
+            if (!in_array($k, $excludedAttributes)) {
+                $attributes .= ' '.$k.'="'.$v.'"';
+            }
+        }
+
+        return $attributes;
+    }
+
     /**
      * Get bootstrap alert HTML
      * @param string $message
@@ -158,10 +187,26 @@ class Bootstrap
         }
         $class = ' class="btn btn-'.$type.$size.$class.'"';
         
+        $otherAttributes = self::otherAttributes(
+            $params,
+            array(
+                'content',
+                'icon',
+                'type',
+                'hint',
+                'url',
+                'new_window',
+                'size',
+                'confirmation',
+                'id',
+                'class'
+            )
+        );
+
         if ($url != '') {
-            return '<a href="'.$url.'"'.$class.' title="'.$hint.'"'.$target.$id.$onclick.'>'.$content.'</a>';
+            return '<a href="'.$url.'"'.$class.' title="'.$hint.'"'.$target.$id.$onclick.$otherAttributes.'>'.$content.'</a>';
         } else {
-            return '<button type="button"'.$class.' title="'.$hint.'"'.$id.$onclick.'>'.$content.'</button>';
+            return '<button type="button"'.$class.' title="'.$hint.'"'.$id.$onclick.$otherAttributes.'>'.$content.'</button>';
         }
     }
     

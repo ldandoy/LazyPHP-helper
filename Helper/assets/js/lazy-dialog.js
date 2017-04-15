@@ -80,26 +80,26 @@ function lazyDialogOpenError(jqXHR, textStatus, errorThrown)
 
 function lazyDialogActionClick(event)
 {
-	var target = event.currentTarget;
-	var action = $(target).data("action");
-	var dialog = $(target).parents(".lazy-dialog");
+	var $target = $(event.currentTarget);
+	var action = $target.data("action");
+	var $dialog = $target.parents(".lazy-dialog");
 
 	switch (action) {
 		case "cancel":
 			if (lazyDialog.actions.cancel == null || lazyDialog.actions.cancel()) {
-				dialog.remove();
+				$dialog.remove();
 			}
 			break;
 
 		case "close":
 			if (lazyDialog.actions.close == null || lazyDialog.actions.close()) {
-				dialog.remove();
+				$dialog.remove();
 			}
 			break;
 
 		case "valid":
 			if (lazyDialog.actions.valid == null || lazyDialog.actions.valid()) {
-				dialog.remove();
+				$dialog.remove();
 			}
 			break;
 	}

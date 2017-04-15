@@ -97,7 +97,7 @@ class Form
     }
 
     /**
-     * Parse and check common params
+     * Extract "others" attributes
      *
      * @param mixed $params
      * @param string[] $excludedAttributes
