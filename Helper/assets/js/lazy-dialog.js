@@ -80,6 +80,8 @@ function lazyDialogOpenError(jqXHR, textStatus, errorThrown)
 
 function lazyDialogActionClick(event)
 {
+	var i = 0;
+	var res = true;
 	var $target = $(event.currentTarget);
 	var action = $target.data("action");
 	var $dialog = $target.parents(".lazy-dialog");
@@ -98,8 +100,22 @@ function lazyDialogActionClick(event)
 			break;
 
 		case "valid":
-			if (lazyDialog.actions.valid == null || lazyDialog.actions.valid()) {
+			if (lazyDialog.actions.valid == null) {
 				$dialog.remove();
+			} else {
+				if (Array.isArray(lazyDialog.actions.valid)) {
+					for (i = 0; i < lazyDialog.actions.valid.length; i = i +1) {
+						if (!lazyDialog.actions.valid[i]()) {
+							res = false;
+							break;
+						}
+					}
+				} else {
+					res = lazyDialog.actions.valid();
+				}
+				if (res) {
+					$dialog.remove();
+				}
 			}
 			break;
 	}

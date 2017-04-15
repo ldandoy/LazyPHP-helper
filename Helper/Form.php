@@ -560,7 +560,7 @@ class Form
                     '<div class="input-group">'.
                         '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
                         '<span class="input-group-btn">'.
-                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="#'.$params['id'].'" data-input-display="#'.$params['id'].'_display" data-multiple="'.$mulitple.'"><i class="fa fa-picture-o"></i></button>'.
+                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'"><i class="fa fa-picture-o"></i></button>'.
                         '</span>'.
                     '</div>'.
                     $params['errorHtml'].
