@@ -373,7 +373,7 @@ class Form
             $input .=
                 '</label>';
             if ($params['readOnly'] != '') {
-                $input .= 
+                $input .=
                     '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'"'.$otherAttributes.' />';
             }
         }
@@ -556,11 +556,11 @@ class Form
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
-                    '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="" class="form-control" />'.
+                    '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control" />'.
                     '<div class="input-group">'.
                         '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
                         '<span class="input-group-btn">'.
-                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'"><i class="fa fa-picture-o"></i></button>'.
+                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-select-multiple="'.$mulitple.'"><i class="fa fa-picture-o"></i></button>'.
                         '</span>'.
                     '</div>'.
                     $params['errorHtml'].

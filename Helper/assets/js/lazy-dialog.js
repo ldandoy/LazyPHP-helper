@@ -46,7 +46,7 @@ function lazyDialogOpenSuccess(data, textStatus, jqXHR)
 
 	$html = 
 		'<div id="'+lazyDialog.id+'" class="lazy-dialog lazy-dialog-fullscreen">'+
-			'<div class="lazy-dialog-content">'+
+			'<div class="lazy-dialog-container">'+
 				'<div class="lazy-dialog-header">'+
 					'<h2 class="lazy-dialog-title">'+lazyDialog.title+'</h2>'+
 					'<div class="lazy-dialog-close-button lazy-dialog-action" data-action="close"><i class="fa fa-remove fa-2x"></i></div>'+

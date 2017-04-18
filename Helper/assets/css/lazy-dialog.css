@@ -1,5 +1,5 @@
 .lazy-dialog {
-	background: rgba(0,0,0,0.15);
+	background: rgba(0,0,0,0.5);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -9,7 +9,7 @@
 	z-index: 10000;
 }
 
-.lazy-dialog-content {
+.lazy-dialog-container {
 	background: #fff;
 	position: relative;
 	width: 100%;
@@ -36,6 +36,10 @@
 
 .lazy-dialog-close-button:hover {
 	color: #ccc;
+}
+
+.lazy-dialog-body {
+	padding: 10px;
 }
 
 .lazy-dialog-footer {
