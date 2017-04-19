@@ -67,6 +67,7 @@ function lazyDialogOpenSuccess(data, textStatus, jqXHR)
 	$("body").append($html);
 
 	$(".lazy-dialog-action").on("click", lazyDialogActionClick);
+	$(".lazy-dialog").on("keydown", lazyDialogKeydown);
 
 	if (lazyDialog.actions.load != null) {
 		lazyDialog.actions.load();
@@ -78,13 +79,11 @@ function lazyDialogOpenError(jqXHR, textStatus, errorThrown)
 	console.log(textStatus, errorThrown);
 }
 
-function lazyDialogActionClick(event)
+function lazyDialogDo(action)
 {
 	var i = 0;
 	var res = true;
-	var $target = $(event.currentTarget);
-	var action = $target.data("action");
-	var $dialog = $target.parents(".lazy-dialog");
+	var $dialog = $(".lazy-dialog");
 
 	switch (action) {
 		case "cancel":
@@ -119,4 +118,16 @@ function lazyDialogActionClick(event)
 			}
 			break;
 	}
+}
+
+function lazyDialogActionClick(event)
+{
+	var $target = $(event.currentTarget);
+	var action = $target.data("action");
+	lazyDialogDo(action);
+}
+
+function lazyDialogKeydown(event)
+{
+	console.log(event);
 }

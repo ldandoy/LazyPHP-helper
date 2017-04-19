@@ -472,7 +472,17 @@ class Form
     {
         $params = self::parseParams($params);
 
-        $otherAttributes = self::otherAttributes($params);
+        $thumbnail = isset($params['thumbnail']) ? $params['thumbnail'] : '1';
+
+        $url = $params['value'] != '' ? $params['value']->url : '';
+
+        if ($thumbnail == '1' && $url != '') {
+            $thumbnailHtml = '<img src="'.$url.'" class="input-media-image" />';
+        } else {
+            $thumbnailHtml = '';
+        }
+
+        $otherAttributes = self::otherAttributes($params, array('thumbnail'));
 
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
@@ -480,7 +490,7 @@ class Form
                 '<div class="col-sm-10">'.
                     '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="image" />'.
                     $params['errorHtml'].
-                    '<img src="'.$params['value']->url.'" class="input-media-image" />'.
+                    $thumbnailHtml.
                 '</div>'.
             '</div>';
 
@@ -548,7 +558,7 @@ class Form
     {
         $params = self::parseParams($params);
 
-        $mulitple = isset($params['mulitple']) ? $params['mulitple'] : 0;
+        $mulitple = isset($params['mulitple']) ? $params['mulitple'] : '0';
 
         $otherAttributes = self::otherAttributes($params, array('multiple'));
 
@@ -587,13 +597,26 @@ class Form
         } else {
             $disabled = '';
         }
-        
+
         $formId = isset($params['formId']) ? $params['formId'] : '';
         
+        $label = $params['label'];
+
+        $icon = isset($params['icon']) ? $params['icon'] : '';
+        if ($icon != '') {
+            $icon = '<i class="fa fa-'.$icon.'"></i>';
+            if ($label != '') {
+                $icon .= '&nbsp;';
+            }
+        }
+        $label = $icon.$label;
+
+        $otherAttributes = self::otherAttributes($params, array('formId', 'icon'));
+
         $html =
-            '<div class="form-group form-group-sm pull-right">'.
+            '<div class="form-group form-group-sm form-submit">'.
                 '<div class="col-sm-12">'.
-                    '<button id="'.$params['id'].'" name="'.$params['name'].'"'.$disabled.' type="submit" value="'.$params['value'].'" form="'.$formId.'" class="btn'.$params['class'].'">'.$params['label'].'</button>'.
+                    '<button id="'.$params['id'].'" name="'.$params['name'].'"'.$disabled.' type="submit" value="'.$params['value'].'" form="'.$formId.'" class="btn'.$params['class'].'"'.$otherAttributes.'>'.$label.'</button>'.
                 '</div>'.
             '</div>'.
             '<div class="clearfix"></div>';
