@@ -45,7 +45,7 @@ function lazyDialogOpenSuccess(data, textStatus, jqXHR)
 	}
 
 	$html = 
-		'<div id="'+lazyDialog.id+'" class="lazy-dialog lazy-dialog-fullscreen">'+
+		'<div id="'+lazyDialog.id+'" class="lazy-dialog lazy-dialog-fullscreen" tabindex="1">'+
 			'<div class="lazy-dialog-container">'+
 				'<div class="lazy-dialog-header">'+
 					'<h2 class="lazy-dialog-title">'+lazyDialog.title+'</h2>'+
@@ -67,7 +67,9 @@ function lazyDialogOpenSuccess(data, textStatus, jqXHR)
 	$("body").append($html);
 
 	$(".lazy-dialog-action").on("click", lazyDialogActionClick);
+
 	$(".lazy-dialog").on("keydown", lazyDialogKeydown);
+	$(".lazy-dialog").focus();
 
 	if (lazyDialog.actions.load != null) {
 		lazyDialog.actions.load();
@@ -129,5 +131,9 @@ function lazyDialogActionClick(event)
 
 function lazyDialogKeydown(event)
 {
-	console.log(event);
+	switch (event.which) {
+		case 27:
+			lazyDialogDo("close");
+			break;
+	}
 }
