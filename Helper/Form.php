@@ -560,11 +560,11 @@ class Form
 
         $mulitple = isset($params['mulitple']) ? $params['mulitple'] : '0';
 
-        $type = isset($params['type']) ? $params['type'] : '';
+        $mediaType = isset($params['mediaType']) ? $params['mediaType'] : '';
 
-        $category = isset($params['category']) ? $params['category'] : '';
+        $mediaCategory = isset($params['mediaCategory']) ? $params['mediaCategory'] : '';
 
-        $otherAttributes = self::otherAttributes($params, array('multiple', 'type', 'category'));
+        $otherAttributes = self::otherAttributes($params, array('multiple', 'mediaType', 'category'));
 
         $html =
             '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
@@ -574,7 +574,7 @@ class Form
                     '<div class="input-group">'.
                         '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
                         '<span class="input-group-btn">'.
-                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-type="'.$type.'" data-category="'.$category.'"><i class="fa fa-picture-o"></i></button>'.
+                            '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-media-type="'.$mediaType.'" data-media-category="'.$mediaCategory.'"><i class="fa fa-picture-o"></i></button>'.
                         '</span>'.
                     '</div>'.
                     $params['errorHtml'].
