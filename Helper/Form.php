@@ -287,6 +287,7 @@ class Form
 
         $input =
             '<select id="'.$params['id'].'" name="'.$params['name'].'"'.$multiple.' class="form-control'.$params['class'].'"'.$otherAttributes.'>';
+        $input .= '<option value="">---</option>';
         foreach ($options as $option) {
             if ((is_array($params['value']) && in_array($option['value'], $params['value'])) || $option['value'] == $params['value']) {
                 $selected = ' selected="selected"';
@@ -571,6 +572,7 @@ class Form
                 '<label for="'.$params['id'].'" class="col-sm-2 control-label">'.$params['label'].'</label>'.
                 '<div class="col-sm-10">'.
                     '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control" />'.
+                    '<input type="hidden" id="'.$params['id'].'_url" name="'.$params['name'].'_url" value="" class="form-control" />'.
                     '<div class="input-group">'.
                         '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
                         '<span class="input-group-btn">'.
