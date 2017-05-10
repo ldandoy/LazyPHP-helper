@@ -142,7 +142,6 @@ class Form
         $formAction = isset($params['formAction']) ? $params['formAction'] : '';
 
         $html = '<form id="'.$params['id'].'" method="post" action="'.$params['action'].'" class="form'.$params['class'].'" enctype="multipart/form-data">';
-
         return $html;
     }
 
@@ -456,7 +455,10 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
+        $url = $params['value'] != '' ? $params['value']->url : '';
+
         $input = 
+            '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
             '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' />';
 
         $html = self::formGroup($input, $params);
@@ -488,6 +490,7 @@ class Form
         $otherAttributes = self::otherAttributes($params, array('thumbnail'));
 
         $input =
+            '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
             '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="image" />'.
             $thumbnailHtml;
 
@@ -509,7 +512,10 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
+        $url = $params['value'] != '' ? $params['value']->url : '';
+
         $input = 
+            '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
             '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="video" />';
 
         $html = self::formGroup($input, $params);
@@ -530,7 +536,10 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
+        $url = $params['value'] != '' ? $params['value']->url : '';
+
         $input = 
+            '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
             '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="audio" />';
 
         $html = self::formGroup($input, $params);
