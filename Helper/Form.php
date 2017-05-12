@@ -453,13 +453,22 @@ class Form
     {
         $params = self::parseParams($params);
 
-        $otherAttributes = self::otherAttributes($params);
+        $thumbnail = isset($params['thumbnail']) ? $params['thumbnail'] : '1';
 
         $url = $params['value'] != '' ? $params['value']->url : '';
 
+        if ($thumbnail == '1' && $url != '') {
+            $thumbnailHtml = '<i class="fa fa-file-o"> '.$url.'</i>';
+        } else {
+            $thumbnailHtml = '';
+        }
+
+        $otherAttributes = self::otherAttributes($params, array('thumbnail'));
+
         $input = 
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' />';
+            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' />'.
+            $thumbnailHtml;
 
         $html = self::formGroup($input, $params);
 
