@@ -139,9 +139,9 @@ class Form
 
         $params = self::parseParams($params);
 
-        $formAction = isset($params['formAction']) ? $params['formAction'] : '';
+        $action = isset($params['action']) ? ' action="'.$params['action'].'"' : '';
 
-        $html = '<form id="'.$params['id'].'" method="post" action="'.$params['action'].'" class="form'.$params['class'].'" enctype="multipart/form-data">';
+        $html = '<form id="'.$params['id'].'" method="post"'.$action.' class="form'.$params['class'].'" enctype="multipart/form-data">';
         return $html;
     }
 
