@@ -172,7 +172,7 @@ class Form
      */
     private static function formGroup($input, $params = array())
     {
-        if (isset($params['label'])) {
+        if (isset($params['label']) && $params['label'] != '') {
             $html =
                 '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
                     '<label for="'.$params['id'].'" class="control-label'.(self::$noBootstrapCol ? '' : ' col-sm-2').'">'.$params['label'].'</label>'.
