@@ -294,7 +294,6 @@ class Form
 
         $input =
             '<select id="'.$params['id'].'" name="'.$params['name'].'"'.$multiple.' class="form-control'.$params['class'].'"'.$otherAttributes.'>';
-        $input .= '<option value="">---</option>';
         foreach ($options as $option) {
             if ((is_array($params['value']) && in_array($option['value'], $params['value'])) || $option['value'] == $params['value']) {
                 $selected = ' selected="selected"';
