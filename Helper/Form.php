@@ -590,6 +590,32 @@ class Form
     }
 
     /**
+     * Generate input for "magicsuggest"
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function magicsuggest($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $options = isset($params['options']) ? rawurlencode(json_encode($params['options'])) : '';
+
+        $valueField = isset($params['valueField']) ? $params['valueField'] : '';
+
+        $displayField = isset($params['displayField']) ? $params['displayField'] : '';
+
+        $otherAttributes = self::otherAttributes($params, array('options', 'valueField', 'displayField'));
+
+        $input = '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="['.str_replace(';', ',', $params['value']).']" class="magicsuggest" data-options="'.$options.'" data-value-field="'.$valueField.'" data-display-field="'.$displayField.'"'.$otherAttributes.' />';
+
+        $html = self::formGroup($input, $params);
+
+        return $html;
+    }
+
+    /**
      * Generate submit button
      *
      * @param mixed $params
