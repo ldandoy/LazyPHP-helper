@@ -32,6 +32,8 @@ class Form
         'autocomplete',
         'placeholder',
         'readOnly',
+        'help',
+        'helpHtml',
         'error',
         'errorClass',
         'errorHtml',
@@ -79,6 +81,12 @@ class Form
             $p['readOnly'] = ' readonly="readonly"';
         } else {
             $p['readOnly'] = '';
+        }
+
+        if (isset($params['help']) && $params['help'] != '') {
+            $p['helpHtml'] = '<div class="help-block">'.$params['help'].'</div>';
+        } else {
+            $p['helpHtml'] = '';
         }
 
         if (isset($params['error'])) {
@@ -179,6 +187,7 @@ class Form
                     (self::$noBootstrapCol ? '' : '<div class="col-sm-10">').
                         $input.
                         $params['errorHtml'].
+                        $params['helpHtml'].
                     (self::$noBootstrapCol ? '' : '</div>').
                 '</div>';
         } else {
@@ -187,6 +196,7 @@ class Form
                     (self::$noBootstrapCol ? '' : '<div class="col-sm-12">').
                         $input.
                         $params['errorHtml'].
+                        $params['helpHtml'].
                     (self::$noBootstrapCol ? '' : '</div>').
                 '</div>';
         }
