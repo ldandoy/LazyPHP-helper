@@ -2,7 +2,7 @@
 
 namespace Helper;
 
-use System\Router;
+use Core\Router;
 
 define('BOOTSTRAP_ALERT_SUCCESS', 0);
 define('BOOTSTRAP_ALERT_INFO', 1);
