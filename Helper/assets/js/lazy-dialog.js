@@ -20,16 +20,20 @@ function lazyDialogOpen(options)
 	lazyDialog.title = options.title != null ? options.title : '';
 	lazyDialog.actions = options.actions != null ? options.actions : null;
 
-	$.ajax({
-		url: options.url,
-		method: "post",
-		data: postData,
-		processData: false,
-		contentType: false,
-		dataType: 'text',
-		success: lazyDialogOpenSuccess,
-		error: lazyDialogOpenError
-	});
+	if (options.url != "") {
+		$.ajax({
+			url: options.url,
+			method: "post",
+			data: postData,
+			processData: false,
+			contentType: false,
+			dataType: 'text',
+			success: lazyDialogOpenSuccess,
+			error: lazyDialogOpenError
+		});
+	} else {
+		lazyDialogOpenSuccess("", null, null);
+	}
 }
 
 function lazyDialogOpenSuccess(data, textStatus, jqXHR)
@@ -71,7 +75,9 @@ function lazyDialogOpenSuccess(data, textStatus, jqXHR)
 	$(".lazy-dialog").on("keydown", lazyDialogKeydown);
 	$(".lazy-dialog").focus();
 
+	console.log(lazyDialog.actions);
 	if (lazyDialog.actions.load != null) {
+		console.log("load");
 		lazyDialog.actions.load();
 	}
 }
@@ -91,12 +97,40 @@ function lazyDialogDo(action)
 		case "cancel":
 			if (lazyDialog.actions.cancel == null || lazyDialog.actions.cancel()) {
 				$dialog.remove();
+			} else {
+				if (Array.isArray(lazyDialog.actions.cancel)) {
+					for (i = 0; i < lazyDialog.actions.cancel.length; i = i +1) {
+						if (!lazyDialog.actions.cancel[i]()) {
+							res = false;
+							break;
+						}
+					}
+				} else {
+					res = lazyDialog.actions.cancel();
+				}
+				if (res) {
+					$dialog.remove();
+				}
 			}
 			break;
 
 		case "close":
 			if (lazyDialog.actions.close == null || lazyDialog.actions.close()) {
 				$dialog.remove();
+			} else {
+				if (Array.isArray(lazyDialog.actions.close)) {
+					for (i = 0; i < lazyDialog.actions.close.length; i = i +1) {
+						if (!lazyDialog.actions.close[i]()) {
+							res = false;
+							break;
+						}
+					}
+				} else {
+					res = lazyDialog.actions.close();
+				}
+				if (res) {
+					$dialog.remove();
+				}
 			}
 			break;
 
