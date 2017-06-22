@@ -509,7 +509,7 @@ class Form
 
         $input =
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="image" />'.
+            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="image" />'.
             $thumbnailHtml;
 
         $html = self::formGroup($input, $params);
@@ -534,7 +534,7 @@ class Form
 
         $input = 
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="video" />';
+            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="video" />';
 
         $html = self::formGroup($input, $params);
 
@@ -558,7 +558,7 @@ class Form
 
         $input = 
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-media-type="audio" />';
+            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="audio" />';
 
         $html = self::formGroup($input, $params);
 
