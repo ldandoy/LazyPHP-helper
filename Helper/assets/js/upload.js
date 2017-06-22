@@ -41,15 +41,16 @@ $(document).ready(function() {
 		document.body.appendChild(formUpload);		
 	}
 
-	$(".input-upload-trigger").on("click", upload);
+	$(".input-upload-trigger").on("click", uploadFile);
+	$(".input-upload-action-del").on("click", uploadDel);
 });
 
-function upload(event) {
-	var inputUploadTrigger = $(event.currentTarget)[0];
+function uploadFile(event) {
+	var inputUpload = $(event.currentTarget).parents(".input-upload")[0];
 
-	var type = inputUploadTrigger.hasAttribute("data-type") ? inputUploadTrigger.getAttribute("data-type") : '';
-	var inputName = inputUploadTrigger.hasAttribute("data-input-name") ? inputUploadTrigger.getAttribute("data-input-name") : '';
-	var inputId = inputUploadTrigger.hasAttribute("data-input-id") ? inputUploadTrigger.getAttribute("data-input-id") : '';
+	var type = inputUpload.hasAttribute("data-type") ? inputUpload.getAttribute("data-type") : '';
+	var inputName = inputUpload.hasAttribute("data-input-name") ? inputUpload.getAttribute("data-input-name") : '';
+	var inputId = inputUpload.hasAttribute("data-input-id") ? inputUpload.getAttribute("data-input-id") : '';
 
 	var $formUpload = $("#formUpload");
 
@@ -85,32 +86,41 @@ function uploadSubmit(event)
 
 function uploadSuccess(data, textStatus, jqXHR)
 {
-	var res = JSON.parse(data);
+	try {
+		var res = JSON.parse(data);
 
-	console.log(res);
-	if(res.error == false)
-	{
-		var element = $("#"+res.id)[0];
-
-		var input = $(element).find("input[name="+res.name+"]")[0];
-		$(input).val(res.file);
-
-		if(res.type == "image")
+		if(res.error == false)
 		{
-			var image = $(element).find("img")[0];
-			image.src = "/uploads/tmp/"+res.file;
-		}
-	}
-	else
-	{
-		alert("Erreur :\n"+res.error);
-	}
+			var $inputUpload = $("#input_upload_"+res.inputId);
 
-	hideHourglass();
+			var thumbnail = $inputUpload.find(".input-upload-thumbnail")[0];
+			var d = new Date();
+			thumbnail.src = res.url+"?"+d.getTime();
+
+			$("input[name="+res.inputName+"]").val(res.url);
+
+			$inputUpload.removeClass("no-file");
+		}
+		else
+		{
+			alert("Erreur :\n"+res.message);
+		}
+	} finally {
+		hideHourglass();
+	}
 }
 
 function uploadError(jqXHR, textStatus, errorThrown)
 {
 	alert("Erreur:\n"+textStatus+"\n"+errorThrown);
 	hideHourglass();
+}
+
+function uploadDel(event) {
+	var $inputUpload = $(event.currentTarget).parents(".input-upload");
+
+	var thumbnail = $inputUpload.find(".input-upload-thumbnail")[0];
+	thumbnail.src = "";
+
+	$inputUpload.addClass("no-file");
 }

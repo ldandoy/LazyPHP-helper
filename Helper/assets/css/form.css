@@ -16,6 +16,7 @@
 }
 
 .input-upload-button {
+	display: none;
 	background: transparent;
 	color: #000;
 	font-size: 40px;
@@ -32,6 +33,7 @@
 .input-upload-trigger:hover .input-upload-button {
 	background: rgba(0, 0, 0, 0.5);
 	color: #fff;
+	display: block;
 }
 
 .input-upload-actions {
@@ -42,6 +44,10 @@
 
 .input-upload.no-file .input-upload-thumbnail {
 	display: none;
+}
+
+.input-upload.no-file .input-upload-button {
+	display: block;
 }
 
 .input-upload.no-file .input-upload-action-del {

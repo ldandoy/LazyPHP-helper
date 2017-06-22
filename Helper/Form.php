@@ -583,23 +583,23 @@ class Form
         $url = $params['value'] != '' ? $params['value']->url : '';
 
         if ($url != '') {
-            $thumbnailHtml = '<img src="'.$url.'" class="input-upload-thumbnail img-responsive" />';
+            $thumbnailSrc=' src="'.$url.'"';
             $noFileClass = '';
         } else {
-            $thumbnailHtml = '';
+            $thumbnailSrc = '';
             $noFileClass = ' no-file';
         }
 
         $input =
-            '<div class="input-upload'.$noFileClass.'">'.
-                '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control" />'.
+            '<div id="input_upload_'.$params['id'].'" class="input-upload'.$noFileClass.'" data-type="'.$type.'" data-input-name="'.$params['name'].'" data-input-id="'.$params['id'].'">'.
+                '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="" class="form-control" />'.
                 '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-                '<div class="input-upload-trigger" data-type="'.$type.'" data-input-name="'.$params['name'].'" data-input-id="'.$params['id'].'" title="Choisir un fichier">'.
-                    $thumbnailHtml.
+                '<div class="input-upload-trigger" title="Choisir un fichier">'.
+                    '<img'.$thumbnailSrc.' class="input-upload-thumbnail img-responsive" />'.
                     '<div class="input-upload-button"><i class="fa fa-file'.($type != '' ? '-'.$type : '').'-o"></i></div>'.
                 '</div>'.
                 '<div class="input-upload-actions">'.
-                    '<button type="button" class="input-upload-action-del btn btn-danger btn-xs" title="supprimer"><i class="fa fa-remove"></i></button>'.
+                    '<button type="button" class="input-upload-action-del btn btn-danger btn-xs" title="Supprimer"><i class="fa fa-remove"></i></button>'.
                 '</div>'.
             '</div>';
 
