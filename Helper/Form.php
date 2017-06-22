@@ -566,6 +566,49 @@ class Form
     }
 
     /**
+     * Generate input for upload a file
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function upload($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $type = isset($params['type']) ? $params['type'] : '';
+
+        $otherAttributes = self::otherAttributes($params, array('type'));
+
+        $url = $params['value'] != '' ? $params['value']->url : '';
+
+        if ($url != '') {
+            $thumbnailHtml = '<img src="'.$url.'" class="input-upload-thumbnail img-responsive" />';
+            $noFileClass = '';
+        } else {
+            $thumbnailHtml = '';
+            $noFileClass = ' no-file';
+        }
+
+        $input =
+            '<div class="input-upload'.$noFileClass.'">'.
+                '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control" />'.
+                '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
+                '<div class="input-upload-trigger" data-type="'.$type.'" data-input-name="'.$params['name'].'" data-input-id="'.$params['id'].'" title="Choisir un fichier">'.
+                    $thumbnailHtml.
+                    '<div class="input-upload-button"><i class="fa fa-file'.($type != '' ? '-'.$type : '').'-o"></i></div>'.
+                '</div>'.
+                '<div class="input-upload-actions">'.
+                    '<button type="button" class="input-upload-action-del btn btn-danger btn-xs" title="supprimer"><i class="fa fa-remove"></i></button>'.
+                '</div>'.
+            '</div>';
+
+        $html = self::formGroup($input, $params);
+
+        return $html;
+    }
+
+    /**
      * Generate input for select a media
      *
      * @param mixed $params
