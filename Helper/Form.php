@@ -630,6 +630,7 @@ class Form
         $input =
             '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control" />'.
             '<input type="hidden" id="'.$params['id'].'_url" name="'.$params['name'].'_url" value="" class="form-control" />'.
+            '<input type="hidden" id="'.$params['id'].'_format" name="'.$params['name'].'_format" value="" class="form-control" />'.
             '<div class="input-group">'.
                 '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
                 '<span class="input-group-btn">'.
