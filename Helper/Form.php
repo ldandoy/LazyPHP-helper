@@ -625,7 +625,7 @@ class Form
 
         $mediaCategory = isset($params['mediaCategory']) ? $params['mediaCategory'] : '';
 
-        $otherAttributes = self::otherAttributes($params, array('multiple', 'mediaType', 'category'));
+        $otherAttributes = self::otherAttributes($params, array('multiple', 'mediaType', 'mediaCategory'));
 
         $input =
             '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control" />'.

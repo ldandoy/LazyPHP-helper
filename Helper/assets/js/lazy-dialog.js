@@ -1,4 +1,4 @@
-var LazyDialog = function(params) {
+var LazyDialog = function() {
 	this.id = '';
 	this.title = '';
 	this.actions = {
@@ -12,20 +12,20 @@ var LazyDialog = function(params) {
 $(document).ready(function() {
 });
 
-LazyDialog.prototype.open = function(options) {
-	var postData = options.postData != null ? options.postData : null;
+LazyDialog.prototype.open = function(params) {
+	var postData = params.postData != null ? params.postData : null;
 
 	if (postData == null) {
 		postData = new FormData();
 	}
 
-	this.id = options.id != null ? options.id : this.id;
-	this.title = options.title != null ? options.title : this.title;
-	this.actions = options.actions != null ? options.actions : this.actions;
+	this.id = params.id != null ? params.id : this.id;
+	this.title = params.title != null ? params.title : this.title;
+	this.actions = params.actions != null ? params.actions : this.actions;
 
-	if (options.url != "") {
+	if (params.url != "") {
 		$.ajax({
-			url: options.url,
+			url: params.url,
 			method: "post",
 			data: postData,
 			processData: false,
@@ -78,7 +78,8 @@ LazyDialog.prototype.openSuccess = function(data, textStatus, jqXHR) {
 	$(".lazy-dialog").on("keydown", {lazyDialog: this}, this.keydown);
 	$(".lazy-dialog").focus();
 
-	if (this.actions.load != null) {
+	var context = this.actions.context != null ? this.actions.context : this;
+	if (this.actions.load != null) {		
 		this.actions.load();
 	}
 }
@@ -93,6 +94,7 @@ LazyDialog.prototype.doAction = function(action)
 	var i = 0;
 	var res = true;
 	var $dialog = $("#"+this.id);
+	var context = this.actions.context != null ? this.actions.context : this;
 
 	switch (action) {
 		case "cancel":
@@ -100,14 +102,14 @@ LazyDialog.prototype.doAction = function(action)
 				$dialog.remove();
 			} else {
 				if (Array.isArray(this.actions.cancel)) {
-					for (i = 0; i < this.actions.cancel.length; i = i +1) {
-						if (!this.actions.cancel[i]()) {
+					for (i = 0; i < this.actions.cancel.length; i = i + 1) {
+						if (!this.actions.cancel[i].call(context)) {
 							res = false;
 							break;
 						}
 					}
 				} else {
-					res = this.actions.cancel();
+					res = this.actions.cancel.call(context);
 				}
 				if (res) {
 					$dialog.remove();
@@ -120,14 +122,14 @@ LazyDialog.prototype.doAction = function(action)
 				$dialog.remove();
 			} else {
 				if (Array.isArray(this.actions.close)) {
-					for (i = 0; i < this.actions.close.length; i = i +1) {
-						if (!this.actions.close[i]()) {
+					for (i = 0; i < this.actions.close.length; i = i + 1) {
+						if (!this.actions.close[i].call(context)) {
 							res = false;
 							break;
 						}
 					}
 				} else {
-					res = this.actions.close();
+					res = this.actions.close.call(context);
 				}
 				if (res) {
 					$dialog.remove();
@@ -140,14 +142,14 @@ LazyDialog.prototype.doAction = function(action)
 				$dialog.remove();
 			} else {
 				if (Array.isArray(this.actions.valid)) {
-					for (i = 0; i < this.actions.valid.length; i = i +1) {
-						if (!this.actions.valid[i]()) {
+					for (i = 0; i < this.actions.valid.length; i = i + 1) {
+						if (!this.actions.valid[i].call(context)) {
 							res = false;
 							break;
 						}
 					}
 				} else {
-					res = this.actions.valid();
+					res = this.actions.valid.call(context);
 				}
 				if (res) {
 					$dialog.remove();
