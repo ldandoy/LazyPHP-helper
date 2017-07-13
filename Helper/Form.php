@@ -52,7 +52,7 @@ class Form
     private static function parseParams($params = array())
     {
         $p = array();
-        
+
         $name = isset($params['name']) ? $params['name'] : '';
         $p['name'] = $name;
 
@@ -396,7 +396,7 @@ class Form
                     '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'"'.$otherAttributes.' />';
             }
         }
-        
+
         $html = self::formGroup($input, $params);
 
         return $html;
@@ -445,7 +445,7 @@ class Form
                     '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'"'.$otherAttributes.' />';
             }
         }
-        
+
         $html = self::formGroup($input, $params);
 
         return $html;
@@ -474,7 +474,7 @@ class Form
 
         $otherAttributes = self::otherAttributes($params, array('thumbnail'));
 
-        $input = 
+        $input =
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
             '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' />'.
             $thumbnailHtml;
@@ -532,7 +532,7 @@ class Form
 
         $url = $params['value'] != '' ? $params['value']->url : '';
 
-        $input = 
+        $input =
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
             '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="video" />';
 
@@ -556,7 +556,7 @@ class Form
 
         $url = $params['value'] != '' ? $params['value']->url : '';
 
-        $input = 
+        $input =
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
             '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="audio" />';
 
@@ -687,7 +687,7 @@ class Form
         }
 
         $formId = isset($params['formId']) ? $params['formId'] : '';
-        
+
         $label = $params['label'];
 
         $icon = isset($params['icon']) ? $params['icon'] : '';
@@ -702,7 +702,7 @@ class Form
         $otherAttributes = self::otherAttributes($params, array('formId', 'icon'));
 
         $html =
-            '<div class="form-group form-group-sm form-submit">'.
+            '<div class="form-group form-group-sm">'.
                 '<div class="col-sm-12">'.
                     '<button id="'.$params['id'].'" name="'.$params['name'].'"'.$disabled.' type="submit" value="'.$params['value'].'" form="'.$formId.'" class="btn'.$params['class'].'"'.$otherAttributes.'>'.$label.'</button>'.
                 '</div>'.
