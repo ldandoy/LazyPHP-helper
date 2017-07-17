@@ -599,7 +599,7 @@ class Form
                     '<div class="input-upload-button"><i class="fa fa-file'.($type != '' ? '-'.$type : '').'-o"></i></div>'.
                 '</div>'.
                 '<div class="input-upload-actions">'.
-                    '<button type="button" class="input-upload-action-del btn btn-danger btn-xs" title="Supprimer"><i class="fa fa-remove"></i></button>'.
+                    '<button type="button" class="input-upload-action-del btn btn-danger btn-sm" title="Supprimer"><i class="fa fa-remove"></i></button>'.
                 '</div>'.
             '</div>';
 
