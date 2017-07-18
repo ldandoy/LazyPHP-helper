@@ -182,8 +182,8 @@ class Form
     {
         if (isset($params['label']) && $params['label'] != '') {
             $html =
-                '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
-                    '<label for="'.$params['id'].'" class="control-label'.(self::$noBootstrapCol ? '' : ' col-sm-2').'">'.$params['label'].'</label>'.
+                '<div class="form-group row'.$params['errorClass'].'">'.
+                    '<label for="'.$params['id'].'" class="col-form-label col-form-label-sm'.(self::$noBootstrapCol ? '' : ' col-sm-2').'">'.$params['label'].'</label>'.
                     (self::$noBootstrapCol ? '' : '<div class="col-sm-10">').
                         $input.
                         $params['errorHtml'].
@@ -192,7 +192,7 @@ class Form
                 '</div>';
         } else {
             $html =
-                '<div class="form-group form-group-sm'.$params['errorClass'].'">'.
+                '<div class="form-group row'.$params['errorClass'].'">'.
                     (self::$noBootstrapCol ? '' : '<div class="col-sm-12">').
                         $input.
                         $params['errorHtml'].
@@ -217,7 +217,7 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
-        $html = '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" />';
+        $html = '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm'.$params['class'].'" />';
 
         return $html;
     }
@@ -235,7 +235,7 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
-        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
+        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
 
         $html = self::formGroup($input, $params);
 
@@ -255,7 +255,7 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
-        $input = '<input type="password" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
+        $input = '<input type="password" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
 
         $html = self::formGroup($input, $params);
 
@@ -278,7 +278,7 @@ class Form
 
         $otherAttributes = self::otherAttributes($params, array('cols', 'rows'));
 
-        $input = '<textarea id="'.$params['id'].'" name="'.$params['name'].'" cols="'.$cols.'" rows="'.$rows.'" class="form-control'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$otherAttributes.'>'.$params['value'].'</textarea>';
+        $input = '<textarea id="'.$params['id'].'" name="'.$params['name'].'" cols="'.$cols.'" rows="'.$rows.'" class="form-control form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$otherAttributes.'>'.$params['value'].'</textarea>';
 
         $html = self::formGroup($input, $params);
 
@@ -303,7 +303,7 @@ class Form
         $otherAttributes = self::otherAttributes($params, array('options', 'multiple'));
 
         $input =
-            '<select id="'.$params['id'].'" name="'.$params['name'].'"'.$multiple.' class="form-control'.$params['class'].'"'.$otherAttributes.'>';
+            '<select id="'.$params['id'].'" name="'.$params['name'].'"'.$multiple.' class="form-control form-control-sm'.$params['class'].'"'.$otherAttributes.'>';
         foreach ($options as $option) {
             if ((is_array($params['value']) && in_array($option['value'], $params['value'])) || $option['value'] == $params['value']) {
                 $selected = ' selected="selected"';
@@ -476,7 +476,7 @@ class Form
 
         $input =
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' />'.
+            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control form-control-sm'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' />'.
             $thumbnailHtml;
 
         $html = self::formGroup($input, $params);
@@ -509,7 +509,7 @@ class Form
 
         $input =
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="image" />'.
+            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control form-control-sm'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="image" />'.
             $thumbnailHtml;
 
         $html = self::formGroup($input, $params);
@@ -534,7 +534,7 @@ class Form
 
         $input =
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="video" />';
+            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control form-control-sm'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="video" />';
 
         $html = self::formGroup($input, $params);
 
@@ -558,7 +558,7 @@ class Form
 
         $input =
             '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
-            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="audio" />';
+            '<input type="file" id="'.$params['id'].'" name="'.$params['name'].'" class="form-control form-control-sm'.$params['class'].'"'.$params['readOnly'].$otherAttributes.' data-file-type="audio" />';
 
         $html = self::formGroup($input, $params);
 
@@ -592,7 +592,7 @@ class Form
 
         $input =
             '<div id="input_upload_'.$params['id'].'" class="input-upload'.$noFileClass.'" data-type="'.$type.'" data-input-name="'.$params['name'].'" data-input-id="'.$params['id'].'">'.
-                '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="" class="form-control" />'.
+                '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="" class="form-control form-control-sm" />'.
                 '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
                 '<div class="input-upload-trigger" title="Choisir un fichier">'.
                     '<img'.$thumbnailSrc.' class="input-upload-thumbnail img-responsive" />'.
@@ -628,11 +628,11 @@ class Form
         $otherAttributes = self::otherAttributes($params, array('multiple', 'mediaType', 'mediaCategory'));
 
         $input =
-            '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control" />'.
-            '<input type="hidden" id="'.$params['id'].'_url" name="'.$params['name'].'_url" value="" class="form-control" />'.
-            '<input type="hidden" id="'.$params['id'].'_format" name="'.$params['name'].'_format" value="" class="form-control" />'.
+            '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm" />'.
+            '<input type="hidden" id="'.$params['id'].'_url" name="'.$params['name'].'_url" value="" class="form-control form-control-sm" />'.
+            '<input type="hidden" id="'.$params['id'].'_format" name="'.$params['name'].'_format" value="" class="form-control form-control-sm" />'.
             '<div class="input-group">'.
-                '<input type="text" id="'.$params['id'].'_display" class="form-control input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
+                '<input type="text" id="'.$params['id'].'_display" class="form-control form-control-sm input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
                 '<span class="input-group-btn">'.
                     '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-media-type="'.$mediaType.'" data-media-category="'.$mediaCategory.'"><i class="fa fa-picture-o"></i></button>'.
                 '</span>'.
@@ -702,7 +702,7 @@ class Form
         $otherAttributes = self::otherAttributes($params, array('formId', 'icon'));
 
         $html =
-            '<div class="form-group form-group-sm">'.
+            '<div class="form-group row">'.
                 '<div class="col-sm-12">'.
                     '<button id="'.$params['id'].'" name="'.$params['name'].'"'.$disabled.' type="submit" value="'.$params['value'].'" form="'.$formId.'" class="btn'.$params['class'].'"'.$otherAttributes.'>'.$label.'</button>'.
                 '</div>'.
