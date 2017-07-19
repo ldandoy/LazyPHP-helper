@@ -97,8 +97,8 @@ class Form
             $error = '';
         }
         if ($error != '') {
-            $p['errorClass'] = ' has-error';
-            $p['errorHtml'] = '<div class="help-block error-block">'.$error.'</div>';
+            $p['errorClass'] = ' has-danger';
+            $p['errorHtml'] = '<div class="form-control-feedback">'.$error.'</div>';
         } else {
             $p['errorClass'] = '';
             $p['errorHtml'] = '';
