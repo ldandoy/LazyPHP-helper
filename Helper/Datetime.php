@@ -68,7 +68,7 @@ class Datetime
      * @param string $format FORMAT_*
      * @return string
      */
-    public static function format($dateTime, $format = FORMAT_DATETIME)
+    public static function format($dateTime, $format = DateTime::FORMAT_DATETIME)
     {
         if (is_string($dateTime)) {
             $ts = Datetime::stringToTimestamp($dateTime);
