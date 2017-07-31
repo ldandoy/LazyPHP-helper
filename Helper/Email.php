@@ -40,7 +40,7 @@ class Email
             $bcc = array($bcc);
         }
 
-        $from = isset($params['from']) ? $params['from'] : 'contact@localhost';
+        $from = isset($params['from']) ? $params['from'] : 'contact@test.com';
 
         $replyTo = isset($params['replyTo']) ? $params['replyTo'] : $from;
 
@@ -58,27 +58,41 @@ class Email
         $mail = new \PHPMailer();
 
         $mail->isMail();
-        // $mail->Host = 'smtp.sfr.fr';
+        // $mail->Host = 'smtp.xxx.xx';
         // $mail->SMTPAuth = true;
-        // $mail->Username = 'laurent.comex@sfr.fr';
-        // $mail->Password = 'lcxsfr';
+        // $mail->Username = 'xxx@xxx.xx';
+        // $mail->Password = 'xxx';
         // $mail->SMTPSecure = 'tls';
         // $mail->Port = 465;
 
-        foreach ($to as $address) {
-            $mail->addAddress($address);
+        $mail->CharSet = 'utf-8';
+
+        foreach ($to as $x) {
+            $addresses = $mail->parseAddresses($x);
+            foreach ($addresses as $a) {
+                $mail->addAddress($a['address'], $a['name']);
+            }
         }
 
-        foreach ($cc as $address) {
-            $mail->addCC($address);
+        foreach ($cc as $x) {
+            $addresses = $mail->parseAddresses($x);
+            foreach ($addresses as $a) {
+                $mail->addCC($a['address'], $a['name']);
+            }
         }
 
-        foreach ($bcc as $address) {
-            $mail->addBCC($address);
+        foreach ($bcc as $x) {
+            $addresses = $mail->parseAddresses($x);
+            foreach ($addresses as $a) {
+                $mail->addBCC($a['address'], $a['name']);
+            }
         }
 
-        $mail->setFrom($from);
-        $mail->addReplyTo($replyTo);
+        $addresses = $mail->parseAddresses($from);
+        $mail->setFrom($addresses[0]['address'], $addresses[0]['name']);
+
+        $addresses = $mail->parseAddresses($replyTo);
+        $mail->addReplyTo($addresses[0]['address'], $addresses[0]['name']);
 
         $mail->Subject = $subject;
 
