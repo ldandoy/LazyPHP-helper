@@ -13,7 +13,10 @@
 	position: relative;
 	width: 100px;
 	height: 100px;
-	overflow: hidden;
+}
+
+.input-upload-thumbnail {
+	width: 100%;
 }
 
 .input-upload-button {

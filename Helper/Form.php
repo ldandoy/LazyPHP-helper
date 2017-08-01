@@ -609,7 +609,7 @@ class Form
                 '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="" class="form-control form-control-sm" />'.
                 '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
                 '<div class="input-upload-trigger" title="Choisir un fichier">'.
-                    '<img'.$thumbnailSrc.' class="input-upload-thumbnail img-responsive" />'.
+                    '<img'.$thumbnailSrc.' class="input-upload-thumbnail" />'.
                     '<div class="input-upload-button"><i class="fa fa-file'.($type != '' ? '-'.$type : '').'-o"></i></div>'.
                 '</div>'.
                 '<div class="input-upload-actions">'.
