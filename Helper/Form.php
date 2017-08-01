@@ -646,9 +646,9 @@ class Form
             '<input type="hidden" id="'.$params['id'].'_url" name="'.$params['name'].'_url" value="" class="form-control form-control-sm" />'.
             '<input type="hidden" id="'.$params['id'].'_format" name="'.$params['name'].'_format" value="" class="form-control form-control-sm" />'.
             '<div class="input-group">'.
-                '<input type="text" id="'.$params['id'].'_display" class="form-control form-control-sm input-media'.$params['class'].'" readonly="readonly"'.$otherAttributes.' />'.
+                '<input type="text" id="'.$params['id'].'_display" class="form-control form-control-sm input-media'.$params['class'].'" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' />'.
                 '<span class="input-group-btn">'.
-                    '<button class="btn btn-default btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-media-type="'.$mediaType.'" data-media-category="'.$mediaCategory.'"><i class="fa fa-picture-o"></i></button>'.
+                    '<button class="btn btn-secondary btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-media-type="'.$mediaType.'" data-media-category="'.$mediaCategory.'"><i class="fa fa-picture-o"></i></button>'.
                 '</span>'.
             '</div>';
 
