@@ -717,9 +717,9 @@ class Form
 
         $html =
             '<div class="form-group row">'.
-                '<div class="col-sm-12">'.
+                (self::$noBootstrapCol ? '' : '<div class="col-sm-12">').
                     '<button id="'.$params['id'].'" name="'.$params['name'].'"'.$disabled.' type="submit" value="'.$params['value'].'" form="'.$formId.'" class="btn'.$params['class'].'"'.$otherAttributes.'>'.$label.'</button>'.
-                '</div>'.
+                (self::$noBootstrapCol ? '' : '</div>').
             '</div>'.
             '<div class="clearfix"></div>';
 
