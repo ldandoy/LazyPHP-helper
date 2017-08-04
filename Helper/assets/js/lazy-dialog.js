@@ -48,7 +48,7 @@ LazyDialog.prototype.openSuccess = function(data, textStatus, jqXHR) {
 
 	var cancelActionButton = '';
 	if (this.actions.cancel != null) {
-		cancelActionButton = '<button class="btn btn-default lazy-dialog-action" data-action="cancel"><i class="fa fa-remove"></i>&nbsp;Annuler</button>';
+		cancelActionButton = '<button class="btn btn-secondary lazy-dialog-action" data-action="cancel"><i class="fa fa-remove"></i>&nbsp;Annuler</button>';
 	}
 
 	$html = 
@@ -61,8 +61,8 @@ LazyDialog.prototype.openSuccess = function(data, textStatus, jqXHR) {
 				'<div class="lazy-dialog-body">'+
 					data+
 				'</div>'+
-				'<div class="lazy-dialog-footer">'+
-					'<div class="lazy-dialog-buttons">'+
+				'<div class="lazy-dialog-footer clearfix">'+
+					'<div class="lazy-dialog-buttons float-right">'+
 						validActionButton+cancelActionButton
 					'</div>'+
 				'</div>'+
@@ -78,10 +78,23 @@ LazyDialog.prototype.openSuccess = function(data, textStatus, jqXHR) {
 	$(".lazy-dialog").on("keydown", {lazyDialog: this}, this.keydown);
 	$(".lazy-dialog").focus();
 
+    $(window).on("resize", this.windowResizeEvent.bind(this));
+    $(window).trigger("resize");
+
 	var context = this.actions.context != null ? this.actions.context : this;
 	if (this.actions.load != null) {		
 		this.actions.load();
 	}
+}
+
+LazyDialog.prototype.windowResizeEvent = function(event)
+{
+    var height = 
+        $(".lazy-dialog .lazy-dialog-container").height() -
+        $(".lazy-dialog .lazy-dialog-header").outerHeight() -
+        $(".lazy-dialog .lazy-dialog-footer").outerHeight();
+	console.log(height);
+    $(".lazy-dialog .lazy-dialog-body").outerHeight(height);
 }
 
 LazyDialog.prototype.openError = function(jqXHR, textStatus, errorThrown)

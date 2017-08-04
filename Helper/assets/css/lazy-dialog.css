@@ -39,13 +39,15 @@
 }
 
 .lazy-dialog-body {
-	padding: 10px;
-	height: 100%;
+	padding: 15px;
+	height: 80%;
 	width: 100%;
+	overflow-y: auto;
 }
 
 .lazy-dialog-footer {
 	padding: 10px;
+	width: 100%;
 }
 
 .lazy-dialog-footer {
