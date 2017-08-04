@@ -93,7 +93,6 @@ LazyDialog.prototype.windowResizeEvent = function(event)
         $(".lazy-dialog .lazy-dialog-container").height() -
         $(".lazy-dialog .lazy-dialog-header").outerHeight() -
         $(".lazy-dialog .lazy-dialog-footer").outerHeight();
-	console.log(height);
     $(".lazy-dialog .lazy-dialog-body").outerHeight(height);
 }
 
