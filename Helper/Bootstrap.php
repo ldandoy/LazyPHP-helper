@@ -102,7 +102,7 @@ class Bootstrap
      * @param mixed $params
      *      content
      *      icon
-     *      type = 'primary' | 'success' | 'info' | 'warning' | 'danger' | 'default' | BOOTSTRAP_BUTTON_*
+     *      type = 'primary' | 'success' | 'info' | 'warning' | 'danger' | 'secondary' | BOOTSTRAP_BUTTON_*
      *      hint
      *      url
      *      new_window 0 | 1
@@ -149,11 +149,11 @@ class Bootstrap
                         break;
                     case BOOTSTRAP_BUTTON_DEFAULT:
                     default:
-                        $type = 'default';
+                        $type = 'secondary';
                 }
             }
         } else {
-            $type = 'default';
+            $type = 'secondary';
         }
         
         $hint = isset($params['hint']) ? $params['hint'] : '';
