@@ -9,7 +9,7 @@ define('BOOTSTRAP_ALERT_INFO', 1);
 define('BOOTSTRAP_ALERT_WARNING', 2);
 define('BOOTSTRAP_ALERT_DANGER', 3);
 
-define('BOOTSTRAP_BUTTON_DEFAULT', 0);
+define('BOOTSTRAP_BUTTON_SECONDARY', 0);
 define('BOOTSTRAP_BUTTON_PRIMARY', 1);
 define('BOOTSTRAP_BUTTON_SUCCESS', 2);
 define('BOOTSTRAP_BUTTON_INFO', 3);
@@ -147,7 +147,7 @@ class Bootstrap
                     case BOOTSTRAP_BUTTON_DANGER:
                         $type = 'danger';
                         break;
-                    case BOOTSTRAP_BUTTON_DEFAULT:
+                    case BOOTSTRAP_BUTTON_SECONDARY:
                     default:
                         $type = 'secondary';
                 }
