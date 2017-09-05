@@ -349,18 +349,22 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
+        $disabledClass = $params['readOnly'] != '' ? ' disabled' : '';
+
         $input =
-            '<label for="'.$params['id'].'" class="checkbox-inline">';
+            '<div class="form-check">'.
+                '<label for="'.$params['id'].'" class="form-check-label'.$disabledClass.'">';
         if ($params['readOnly'] != '') {
             $input .=
-                '<input value="1"'.$checked.' disabled="disabled" type="checkbox" class="'.$params['class'].'" />'.
+                '<input value="1"'.$checked.' disabled="disabled" type="checkbox" class="'.$params['class'].' form-check-input" />'.
                 '<input id="'.$params['id'].'" name="'.$params['name'].'" type="hidden" value="'.$params['value'].'"'.$otherAttributes.' />';
         } else {
             $input .=
-                '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].'"'.$otherAttributes.' />&nbsp;';
+                '<input id="'.$params['id'].'" name="'.$params['name'].'" value="1"'.$checked.' type="checkbox" class="'.$params['class'].' form-check-input"'.$otherAttributes.' />&nbsp;';
         }
         $input .=
-            '</label>';
+                '</label>'.
+            '</div>';
 
         $html = self::formGroup($input, $params);
 
@@ -380,9 +384,14 @@ class Form
 
         $options = isset($params['options']) ? $params['options'] : array();
 
-        $otherAttributes = self::otherAttributes($params, array('options'));
+        $isInline = isset($params['inline']) ? $params['inline'] == '1' : false;
+        $inlineClass = $isInline ?' form-check-inline' : '';
+
+        $otherAttributes = self::otherAttributes($params, array('options', 'inline'));
 
         $value = is_array($params['value']) ? $params['value'] : explode(';', $params['value']);
+
+        $disabledClass = $params['readOnly'] != '' ? ' disabled' : '';
 
         $input = '';
         foreach ($params['options'] as $option) {
@@ -395,16 +404,18 @@ class Form
             }
             $inputId = $params['id'].'_'.$option['value'];
             $input .=
-                '<label for="'.$inputId.'" class="checkbox-inline">';
+                '<div class="form-check'.$inlineClass.$disabledClass.'">'.
+                    '<label for="'.$inputId.'" class="form-check-label">';
             if ($params['readOnly'] != '') {
                 $input .=
-                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'"'.$otherAttributes.' />&nbsp;'.$option['label'];
+                    '<input value="'.$option['value'].'"'.$checked.' type="checkbox" class="'.$params['class'].' form-check-input"'.$otherAttributes.' />&nbsp;'.$option['label'];
             } else {
                 $input .=
-                    '<input id="'.$inputId.'" name="'.$params['name'].'[]" value="'.$option['value'].'"'.$checked.' type="checkbox" class="'.$params['class'].'"'.$otherAttributes.' />&nbsp;'.$option['label'];
+                    '<input id="'.$inputId.'" name="'.$params['name'].'[]" value="'.$option['value'].'"'.$checked.' type="checkbox" class="'.$params['class'].' form-check-input"'.$otherAttributes.' />&nbsp;'.$option['label'];
             }
             $input .=
-                '</label>';
+                    '</label>'.
+                '</div>';
             if ($params['readOnly'] != '') {
                 $input .=
                     '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'"'.$otherAttributes.' />';
@@ -429,9 +440,14 @@ class Form
 
         $options = isset($params['options']) ? $params['options'] : array();
 
+        $isInline = isset($params['inline']) ? $params['inline'] == '1' : false;
+        $inlineClass = $isInline ?' form-check-inline' : '';
+
         $otherAttributes = self::otherAttributes($params, array('options'));
 
         $value = is_array($params['value']) ? $params['value'] : explode(';', $params['value']);
+
+        $disabledClass = $params['readOnly'] != '' ? ' disabled' : '';
 
         $input = '';
         foreach ($params['options'] as $option) {
@@ -444,16 +460,18 @@ class Form
             }
             $inputId = $params['id'].'_'.$option['value'];
             $input .=
-                '<label for="'.$inputId.'" class="radio-inline">';
+                '<div class="form-check'.$inlineClass.$disabledClass.'">'.
+                    '<label for="'.$inputId.'" class="form-check-label">';
             if ($params['readOnly'] != '') {
                 $input .=
-                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'"'.$otherAttributes.' />&nbsp;'.$option['label'];
+                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'" form-check-input'.$otherAttributes.' />&nbsp;'.$option['label'];
             } else {
                 $input .=
-                    '<input id="'.$inputId.'" name="'.$params['name'].'" value="'.$option['value'].'"'.$checked.' type="radio" class="'.$params['class'].'"'.$otherAttributes.' />'.$option['label'];
+                    '<input id="'.$inputId.'" name="'.$params['name'].'" value="'.$option['value'].'"'.$checked.' type="radio" class="'.$params['class'].'" form-check-input'.$otherAttributes.' />'.$option['label'];
             }
             $input .=
-                '</label>';
+                    '</label>'.
+                '</div>';
             if ($params['readOnly'] != '') {
                 $input .=
                     '<input id="'.$inputId.'" name="'.$params['name'].'" type="hidden" value="'.$readOnlyValue.'"'.$otherAttributes.' />';
