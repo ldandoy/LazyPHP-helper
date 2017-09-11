@@ -61,9 +61,6 @@ class Form
 
         $p['label'] = isset($params['label']) ? $params['label'] : '';
 
-        $class = isset($params['class']) ? $params['class'] : '';
-        $p['class'] = rtrim(' '.$class);
-
         if (isset($params['value'])) {
             $p['value'] = $params['value'];
         } else if (isset($params['model']['value'])) {
@@ -97,12 +94,15 @@ class Form
             $error = '';
         }
         if ($error != '') {
-            $p['errorClass'] = ' has-danger';
-            $p['errorHtml'] = '<div class="form-control-feedback">'.$error.'</div>';
+            $p['errorClass'] = ' is-invalid';
+            $p['errorHtml'] = '<div class="invalid-feedback">'.$error.'</div>';
         } else {
             $p['errorClass'] = '';
             $p['errorHtml'] = '';
         }
+
+        $class = (isset($params['class']) ? $params['class'] : '').$p['errorClass'];
+        $p['class'] = rtrim(' '.$class);
 
         return array_merge($params, $p);
     }
@@ -182,7 +182,7 @@ class Form
     {
         if (isset($params['label']) && $params['label'] != '') {
             $html =
-                '<div class="form-group row'.$params['errorClass'].'">'.
+                '<div class="form-group row">'.
                     '<label for="'.$params['id'].'" class="col-form-label col-form-label-sm'.(self::$noBootstrapCol ? '' : ' col-sm-2').'">'.$params['label'].'</label>'.
                     (self::$noBootstrapCol ? '' : '<div class="col-sm-10">').
                         $input.
@@ -192,7 +192,7 @@ class Form
                 '</div>';
         } else {
             $html =
-                '<div class="form-group row'.$params['errorClass'].'">'.
+                '<div class="form-group row">'.
                     (self::$noBootstrapCol ? '' : '<div class="col-sm-12">').
                         $input.
                         $params['errorHtml'].
@@ -235,7 +235,7 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
-        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
+        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-success form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
 
         $html = self::formGroup($input, $params);
 
