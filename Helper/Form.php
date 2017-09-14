@@ -235,7 +235,7 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
-        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-success form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
+        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
 
         $html = self::formGroup($input, $params);
 
