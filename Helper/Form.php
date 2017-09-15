@@ -182,7 +182,7 @@ class Form
     {
         if (isset($params['label']) && $params['label'] != '') {
             $html =
-                '<div class="form-group row">'.
+                '<div class="form-group'.(self::$noBootstrapCol ? '' : ' row').'">'.
                     '<label for="'.$params['id'].'" class="col-form-label col-form-label-sm'.(self::$noBootstrapCol ? '' : ' col-sm-2').'">'.$params['label'].'</label>'.
                     (self::$noBootstrapCol ? '' : '<div class="col-sm-10">').
                         $input.
@@ -192,7 +192,7 @@ class Form
                 '</div>';
         } else {
             $html =
-                '<div class="form-group row">'.
+                '<div class="form-group'.(self::$noBootstrapCol ? '' : ' row').'">'.
                     (self::$noBootstrapCol ? '' : '<div class="col-sm-12">').
                         $input.
                         $params['errorHtml'].
@@ -464,10 +464,10 @@ class Form
                     '<label for="'.$inputId.'" class="form-check-label">';
             if ($params['readOnly'] != '') {
                 $input .=
-                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$class.'" form-check-input'.$otherAttributes.' />&nbsp;'.$option['label'];
+                    '<input value="'.$option['value'].'"'.$checked.' type="radio" class="'.$params['class'].' form-check-input"'.$otherAttributes.' />&nbsp;'.$option['label'];
             } else {
                 $input .=
-                    '<input id="'.$inputId.'" name="'.$params['name'].'" value="'.$option['value'].'"'.$checked.' type="radio" class="'.$params['class'].'" form-check-input'.$otherAttributes.' />'.$option['label'];
+                    '<input id="'.$inputId.'" name="'.$params['name'].'" value="'.$option['value'].'"'.$checked.' type="radio" class="'.$params['class'].' form-check-input"'.$otherAttributes.' />'.$option['label'];
             }
             $input .=
                     '</label>'.

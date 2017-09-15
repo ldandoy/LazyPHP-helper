@@ -57,3 +57,7 @@
 .input-upload.no-file .input-upload-action-del {
 	display: none;
 }
+
+input[type="radio"], input[type="checkbox"] {
+	vertical-align: text-bottom;
+}
