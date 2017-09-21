@@ -5,7 +5,8 @@ var LazyDialog = function() {
         load: null,
         close: null,
         cancel: null,
-        valid: null
+        valid: null,
+        context: null
     };
 };
 
@@ -83,7 +84,7 @@ LazyDialog.prototype.openSuccess = function(data, textStatus, jqXHR) {
 
     var context = this.actions.context != null ? this.actions.context : this;
     if (this.actions.load != null) {
-        this.actions.load();
+        this.actions.load()/*.call(context)*/;
     }
 }
 
@@ -115,13 +116,13 @@ LazyDialog.prototype.doAction = function(action)
             } else {
                 if (Array.isArray(this.actions.cancel)) {
                     for (i = 0; i < this.actions.cancel.length; i = i + 1) {
-                        if (!this.actions.cancel[i].call(context)) {
+                        if (!this.actions.cancel[i]()/*.call(context)*/) {
                             res = false;
                             break;
                         }
                     }
                 } else {
-                    res = this.actions.cancel.call(context);
+                    res = this.actions.cancel()/*.call(context)*/;
                 }
                 if (res) {
                     $dialog.remove();
@@ -135,13 +136,13 @@ LazyDialog.prototype.doAction = function(action)
             } else {
                 if (Array.isArray(this.actions.close)) {
                     for (i = 0; i < this.actions.close.length; i = i + 1) {
-                        if (!this.actions.close[i].call(context)) {
+                        if (!this.actions.close[i]()/*.call(context)*/) {
                             res = false;
                             break;
                         }
                     }
                 } else {
-                    res = this.actions.close.call(context);
+                    res = this.actions.close()/*.call(context)*/;
                 }
                 if (res) {
                     $dialog.remove();
@@ -155,13 +156,13 @@ LazyDialog.prototype.doAction = function(action)
             } else {
                 if (Array.isArray(this.actions.valid)) {
                     for (i = 0; i < this.actions.valid.length; i = i + 1) {
-                        if (!this.actions.valid[i].call(context)) {
+                        if (!this.actions.valid[i]()/*.call(context)*/) {
                             res = false;
                             break;
                         }
                     }
                 } else {
-                    res = this.actions.valid.call(context);
+                    res = this.actions.valid()/*.call(context)*/;
                 }
                 if (res) {
                     $dialog.remove();
