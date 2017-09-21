@@ -282,20 +282,6 @@ class Form
 
         $html = self::formGroup($input, $params);
 
-        if (isset($params['tinymce']) && $params['tinymce'] == true) {
-            $html .= '<script>tinymce.init({ selector:"textarea",branding: false,
-        		forced_root_block: false,
-        		height: 400,
-        		plugins: "code link lists visualblocks",
-        		menubar: "edit format tools",
-        		toolbar: [
-        			"code | undo redo | styleselect | removeformat | visualblocks | " +
-        			"bold italic underline strikethrough subscript superscript | " +
-        			"alignleft aligncenter alignright alignjustify alignnone | " +
-        			"bullist numlist | link unlink"
-        		] });</script>';
-        }
-
         return $html;
     }
 
