@@ -8,7 +8,7 @@ use Core\Router;
 
 class UploadController extends FrontController
 {
-    public function uploadAction()
+    public function indexAction()
     {
         $res = array(
             'error' => false,

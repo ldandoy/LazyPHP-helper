@@ -615,11 +615,28 @@ class Form
         $url = $params['value'] != '' ? $params['value']->url : '';
 
         if ($url != '') {
-            $thumbnailSrc=' src="'.$url.'"';
             $noFileClass = '';
         } else {
-            $thumbnailSrc = '';
             $noFileClass = ' no-file';
+        }
+
+        switch ($type) {
+            case 'image':
+                $typeIcon = 'file-image-o';
+                $thumbnail = '<img src="'.$url.'" class="input-upload-thumbnail" />';
+                break;
+            case 'video':
+                $typeIcon = 'file-video-o';
+                $thumbnail = '<i class="fa fa-file-video-o input-upload-thumbnail"></i>';
+                break;
+            case 'audio':
+                $typeIcon = 'file-audio-o';
+                $thumbnail = '<i class="fa fa-file-audio-o input-upload-thumbnail"></i>';
+                break;
+            default:
+                $typeIcon = 'file-o';
+                $thumbnail = '<i class="fa fa-file-o input-upload-thumbnail"></i>';
+                break;
         }
 
         $input =
@@ -627,8 +644,8 @@ class Form
                 '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="" class="form-control form-control-sm" />'.
                 '<input type="hidden" id="_'.$params['id'].'_" name="_'.$params['name'].'_" value="'.$url.'" />'.
                 '<div class="input-upload-trigger" title="Choisir un fichier">'.
-                    '<img'.$thumbnailSrc.' class="input-upload-thumbnail" />'.
-                    '<div class="input-upload-button"><i class="fa fa-file'.($type != '' ? '-'.$type : '').'-o"></i></div>'.
+                    $thumbnail.
+                    '<div class="input-upload-button"><i class="fa fa-'.$typeIcon.'"></i></div>'.
                 '</div>'.
                 '<div class="input-upload-actions">'.
                     '<button type="button" class="input-upload-action-del btn btn-danger btn-sm" title="Supprimer"><i class="fa fa-remove"></i></button>'.
