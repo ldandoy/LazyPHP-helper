@@ -150,7 +150,7 @@ class Html
         $id = isset($params['id']) ? ' id="'.$params['id'].'"' : '';
 
         $class = isset($params['class']) ? $params['class'] : '';
-        $class = ' class="'.$class.' table table-hover table-stripped"';
+        $class = ' class="'.$class.' table table-hover table-stripped table-sm datatable"';
 
         $dataset = isset($params['dataset']) ?
             $params['dataset'] :
@@ -169,8 +169,10 @@ class Html
                 '<thead>'.
                     '<tr>';
         foreach ($columns as $column) {
-            $html .=
+            if (!isset($column['visible']) || $column['visible']) {
+                $html .=
                         '<th>'.$column['title'].'</th>';
+            }
         }
                     '</tr>'.
                 '</thead>';
@@ -182,9 +184,14 @@ class Html
                     '<tr>';
             foreach ($columns as $column) {
                 if (!isset($column['visible']) || $column['visible']) {
+                    $dataOrder = '';
+                    $dataSearch = '';
+if ($column['name']=='col1' && $row[$column['name']] > 2) {$dataSearch = ' data-search="!!"';}
                     switch ($column['type']) {
                         case 'datetime':
                             $value = $row[$column['name']];
+                            $ts = Datetime::stringToTimestamp($value);
+                            $dataOrder = ' data-order="'.$ts.'"';
                             if (isset($column['format'])) {
                                 $value = Datetime::format($value, $column['format']);
                             } else {
@@ -200,7 +207,7 @@ class Html
                     }
 
                     $html .=
-                        '<td>'.$value.'</td>';
+                        '<td'.$dataOrder.$dataSearch.'>'.$value.'</td>';
                 }
             }
                     '</tr>';

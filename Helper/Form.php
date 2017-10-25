@@ -11,6 +11,8 @@
 
 namespace Helper;
 
+use Datetime;
+
 /**
  * Class gérant les Forms du site
  *
@@ -677,6 +679,41 @@ class Form
 
         return $html;
     }
+
+    /**
+     * Generate input for "magicsuggest"
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function datetime($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $type = isset($params['type']) ? $params['type'] : 'datetime';
+        // switch ($type) {
+        //     case 'datetime':
+        //         $format = 'yyyy-dd-mm hh:ii:ss';
+        //         break;
+        //     case 'date':
+        //         $format = 'yyyy-dd-mm';
+        //         break;
+        //     case 'time':
+        //         $format = 'yyyy-dd-mm hh:ii:ss';
+        //         break;
+        // }
+
+        $otherAttributes = self::otherAttributes($params, array('type'));
+
+        $input =
+            '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm" />'.
+            '<input type="text" id="'.$params['id'].'_display" class="form-control form-control-sm '.$params['class'].' datetimepicker" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' />';
+
+        $html = self::formGroup($input, $params);
+
+        return $html;
+    }    
 
     /**
      * Generate input for "magicsuggest"
