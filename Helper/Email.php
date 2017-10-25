@@ -9,6 +9,11 @@ require ROOT_DIR.DS.'libs/phpmailer/class.pop3.php';
 class Email
 {
     /**
+     * @var string
+     */
+    public static $lastError = '';
+
+    /**
      * Send an email
      *
      * @param mixed $params
@@ -109,6 +114,11 @@ class Email
             $mail->addAttachment($attachment);
         }
 
-        return $mail->send();
+        self::$lastError = '';
+        $res = $mail->send();
+        if (!$res) {
+            self::$lastError = $mail->ErrorInfo;
+        }
+        return $res;
     }
 }
