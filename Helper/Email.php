@@ -58,9 +58,10 @@ class Email
         $mail = new \PHPMailer();
 
         $mail->isMail();
-        // $mail->Host = 'smtp.xxx.xx';
+        // $mail->isSMTP();
+        // $mail->Host = 'smpt.xxx';
         // $mail->SMTPAuth = true;
-        // $mail->Username = 'xxx@xxx.xx';
+        // $mail->Username = 'xxx';
         // $mail->Password = 'xxx';
         // $mail->SMTPSecure = 'tls';
         // $mail->Port = 465;
@@ -109,6 +110,10 @@ class Email
             $mail->addAttachment($attachment);
         }
 
-        return $mail->send();
+        $res = $mail->send();
+        if (!$res) {
+            return $mail->ErrorInfo;
+        }
+        return $res;
     }
 }

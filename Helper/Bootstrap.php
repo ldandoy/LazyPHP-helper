@@ -60,28 +60,22 @@ class Bootstrap
      */
     public static function alert($message = '', $type = BOOTSTRAP_ALERT_SUCCESS, $canClose = true)
     {
-        if (isset($params['type'])) {
-            $type = $params['type'];
-
-            if (is_int($type)) {
-                switch($type)
-                {
-                    case BOOTSTRAP_ALERT_INFO:
-                        $class = 'info';
-                        break;
-                    case BOOTSTRAP_ALERT_WARNING:
-                        $class = 'warning';
-                        break;
-                    case BOOTSTRAP_ALERT_DANGER:
-                        $class = 'danger';
-                        break;
-                    case BOOTSTRAP_ALERT_SUCCESS:
-                    default:
-                        $class = 'success';
-                }
-            }
-        } else {
-            $class = 'success';
+        switch($type)
+        {
+            case BOOTSTRAP_ALERT_SUCCESS:
+                $typeClass = 'success';
+                break;
+            case BOOTSTRAP_ALERT_INFO:
+                $typeClass = 'info';
+                break;
+            case BOOTSTRAP_ALERT_WARNING:
+                $typeClass = 'warning';
+                break;
+            case BOOTSTRAP_ALERT_DANGER:
+                $typeClass = 'danger';
+                break;
+            default:
+                $typeClass = $type;
         }
         
         if ($canClose === true) {
@@ -91,7 +85,7 @@ class Bootstrap
         }
         
         return
-            '<div class="alert alert-'.$type.' alert-dismissible" role="alert">'.
+            '<div class="alert alert-'.$typeClass.' alert-dismissible" role="alert">'.
                 $buttonClose.
                 $message.
             '</div>';
