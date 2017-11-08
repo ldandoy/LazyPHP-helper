@@ -713,7 +713,7 @@ class Form
         $html = self::formGroup($input, $params);
 
         return $html;
-    }    
+    }
 
     /**
      * Generate input for "magicsuggest"
@@ -780,6 +780,26 @@ class Form
                 (self::$noBootstrapCol ? '' : '</div>').
             '</div>'.
             '<div class="clearfix"></div>';
+
+        return $html;
+    }
+
+    /**
+     * Generate input datetimepicker
+     *
+     * @param mixed $params
+     *
+     * @return string
+     */
+    public static function datetimepicker($params = array())
+    {
+        $params = self::parseParams($params);
+
+        $otherAttributes = self::otherAttributes($params);
+
+        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control datetimepicker form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
+
+        $html = self::formGroup($input, $params);
 
         return $html;
     }
