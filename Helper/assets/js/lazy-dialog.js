@@ -154,7 +154,7 @@ LazyDialog.prototype.doAction = function(action)
             if (this.actions.valid == null) {
                 $dialog.remove();
             } else {
-                if (Array.isArray(this.actions.valid)) {
+                if (Array.isArray(this.actions.valid)) {                    
                     for (i = 0; i < this.actions.valid.length; i = i + 1) {
                         if (!this.actions.valid[i]()/*.call(context)*/) {
                             res = false;

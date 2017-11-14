@@ -219,7 +219,7 @@ class Form
 
         $otherAttributes = self::otherAttributes($params);
 
-        $html = '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm'.$params['class'].'" />';
+        $html = '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm'.$params['class'].'"'.$otherAttributes.' />';
 
         return $html;
     }
@@ -662,7 +662,9 @@ class Form
 
         $mediaCategory = isset($params['mediaCategory']) ? $params['mediaCategory'] : '';
 
-        $otherAttributes = self::otherAttributes($params, array('multiple', 'mediaType', 'mediaCategory'));
+        $onValid = isset($params['onValid']) ? $params['onValid'] : '';
+
+        $otherAttributes = self::otherAttributes($params, array('multiple', 'mediaType', 'mediaCategory', 'onValid'));
 
         $input =
             '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm" />'.
@@ -671,7 +673,7 @@ class Form
             '<div class="input-group">'.
                 '<input type="text" id="'.$params['id'].'_display" class="form-control form-control-sm input-media'.$params['class'].'" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' />'.
                 '<span class="input-group-btn">'.
-                    '<button class="btn btn-secondary btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-media-type="'.$mediaType.'" data-media-category="'.$mediaCategory.'"><i class="fa fa-picture-o"></i></button>'.
+                    '<button class="btn btn-secondary btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-media-type="'.$mediaType.'" data-media-category="'.$mediaCategory.'" data-on-valid="'.$onValid.'"><i class="fa fa-picture-o"></i></button>'.
                 '</span>'.
             '</div>';
 
