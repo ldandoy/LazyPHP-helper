@@ -664,7 +664,11 @@ class Form
 
         $onValid = isset($params['onValid']) ? $params['onValid'] : '';
 
-        $otherAttributes = self::otherAttributes($params, array('multiple', 'mediaType', 'mediaCategory', 'onValid'));
+        $clearButton = isset($params['clearButton']) ? $params['clearButton'] == '1' : false;
+
+        $onClear = isset($params['onClear']) ? $params['onClear'] : '';
+
+        $otherAttributes = self::otherAttributes($params, array('multiple', 'mediaType', 'mediaCategory', 'onValid', 'clearButton', 'onClear'));
 
         $input =
             '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm" />'.
@@ -673,7 +677,12 @@ class Form
             '<div class="input-group">'.
                 '<input type="text" id="'.$params['id'].'_display" class="form-control form-control-sm input-media'.$params['class'].'" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' />'.
                 '<span class="input-group-btn">'.
-                    '<button class="btn btn-secondary btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-media-type="'.$mediaType.'" data-media-category="'.$mediaCategory.'" data-on-valid="'.$onValid.'"><i class="fa fa-picture-o"></i></button>'.
+                    '<button class="btn btn-secondary btn-sm input-media-button" type="button" data-input-id="'.$params['id'].'" data-input-display-id="'.$params['id'].'_display" data-multiple="'.$mulitple.'" data-media-type="'.$mediaType.'" data-media-category="'.$mediaCategory.'" data-on-valid="'.$onValid.'"><i class="fa fa-picture-o"></i></button>';
+        if ($clearButton) {
+            $input .=
+                    '<button class="btn btn-danger btn-sm input-media-clear-button" type="button" data-input-id="'.$params['id'].'" data-on-clear="'.$onClear.'"><i class="fa fa-remove"></i></button>';
+        }
+        $input .=
                 '</span>'.
             '</div>';
 
