@@ -692,7 +692,7 @@ class Form
     }
 
     /**
-     * Generate input for "magicsuggest"
+     * Generate input for "datetime"
      *
      * @param mixed $params
      *
