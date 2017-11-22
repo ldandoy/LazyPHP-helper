@@ -45,7 +45,7 @@ class Datetime
      * @param string $format
      * @return int (Unix timestamp)
      */
-    public static function stringToTimestamp($dateTime, $format = DateTime::DATETIME_FORMAT)
+    public static function stringToTimestamp($dateTime, $format = Datetime::DATETIME_FORMAT)
     {
         $dt = \DateTime::createFromFormat($format, $dateTime);
         return $dt->getTimestamp();
@@ -57,9 +57,20 @@ class Datetime
      * @param string $format
      * @return string
      */
-    public static function timestampToString($timestamp, $format = DateTime::DATETIME_FORMAT)
+    public static function timestampToString($timestamp, $format = Datetime::DATETIME_FORMAT)
     {
         return date($format, $timestamp);
+    }
+
+    /**
+     * Convert a string to DateTime Object
+     * @param string $dateTime
+     * @param string $format
+     * @return string
+     */
+    public static function stringToDateTime($dateTime, $format = Datetime::DATETIME_FORMAT)
+    {
+        return \DateTime::createFromFormat($format, $dateTime);
     }
 
     /**
@@ -68,7 +79,7 @@ class Datetime
      * @param string $format FORMAT_*
      * @return string
      */
-    public static function format($dateTime, $format = DateTime::FORMAT_DATETIME)
+    public static function format($dateTime, $format = Datetime::FORMAT_DATETIME)
     {
         if (is_string($dateTime)) {
             $ts = Datetime::stringToTimestamp($dateTime);
