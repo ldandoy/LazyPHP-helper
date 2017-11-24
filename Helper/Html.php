@@ -79,7 +79,7 @@ class Html
      *      content
      *      icon
      *      url
-     *      new_window 0 | 1
+     *      newWindow 0 | 1
      *      confirmation
      *
      * @return string
@@ -90,7 +90,7 @@ class Html
 
         $url = isset($params['url']) ? Router::url($params['url']) : '';
 
-        $target = isset($params['new_window']) && $params['new_window'] == '1' ? ' target="_blank"' : '';
+        $target = isset($params['newWindow']) && $params['newWindow'] == '1' ? ' target="_blank"' : '';
 
         $content = isset($params['content']) ? $params['content'] : '';
 

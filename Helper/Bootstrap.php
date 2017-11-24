@@ -4,17 +4,24 @@ namespace Helper;
 
 use Core\Router;
 
-define('BOOTSTRAP_ALERT_SUCCESS', 0);
-define('BOOTSTRAP_ALERT_INFO', 1);
-define('BOOTSTRAP_ALERT_WARNING', 2);
+define('BOOTSTRAP_ALERT_PRIMARY', 0);
+define('BOOTSTRAP_ALERT_SECONDARY', 1);
+define('BOOTSTRAP_ALERT_SUCCESS', 2);
 define('BOOTSTRAP_ALERT_DANGER', 3);
+define('BOOTSTRAP_ALERT_WARNING', 4);
+define('BOOTSTRAP_ALERT_INFO', 5);
+define('BOOTSTRAP_ALERT_LIGHT', 6);
+define('BOOTSTRAP_ALERT_DARK', 7);
 
-define('BOOTSTRAP_BUTTON_SECONDARY', 0);
-define('BOOTSTRAP_BUTTON_PRIMARY', 1);
+define('BOOTSTRAP_BUTTON_PRIMARY', 0);
+define('BOOTSTRAP_BUTTON_SECONDARY', 1);
 define('BOOTSTRAP_BUTTON_SUCCESS', 2);
-define('BOOTSTRAP_BUTTON_INFO', 3);
+define('BOOTSTRAP_BUTTON_DANGER', 3);
 define('BOOTSTRAP_BUTTON_WARNING', 4);
-define('BOOTSTRAP_BUTTON_DANGER', 5);
+define('BOOTSTRAP_BUTTON_INFO', 5);
+define('BOOTSTRAP_BUTTON_LIGHT', 6);
+define('BOOTSTRAP_BUTTON_DARK', 7);
+define('BOOTSTRAP_BUTTON_LINK', 8);
 
 define('BOOTSTRAP_MODAL_SIZE_LG', 0);
 define('BOOTSTRAP_MODAL_SIZE_MD', 1);
@@ -99,7 +106,7 @@ class Bootstrap
      *      type = 'primary' | 'success' | 'info' | 'warning' | 'danger' | 'secondary' | BOOTSTRAP_BUTTON_*
      *      hint
      *      url
-     *      new_window 0 | 1
+     *      newWindow 0 | 1
      *      size = 'lg' | 'sm' | 'xs'
      *      confirmation
      *      id
@@ -108,7 +115,6 @@ class Bootstrap
      */
     public static function button($params = null)
     {
-
         $content = isset($params['content']) ? $params['content'] : '';
 
         $icon = isset($params['icon']) ? $params['icon'] : '';
@@ -126,35 +132,37 @@ class Bootstrap
             if (is_int($type)) {
                 switch($type)
                 {
-                    case BOOTSTRAP_BUTTON_PRIMARY:
+					case BOOTSTRAP_BUTTON_PRIMARY:
                         $type = 'primary';
-                        break;
-                    case BOOTSTRAP_BUTTON_SUCCESS:
-                        $type = 'success';
-                        break;
-                    case BOOTSTRAP_BUTTON_INFO:
-                        $type = 'info';
-                        break;
-                    case BOOTSTRAP_BUTTON_WARNING:
-                        $type = 'warning';
-                        break;
-                    case BOOTSTRAP_BUTTON_DANGER:
-                        $type = 'danger';
-                        break;
-                    case BOOTSTRAP_BUTTON_SECONDARY:
-                    default:
+					case BOOTSTRAP_BUTTON_SECONDARY:
                         $type = 'secondary';
+					case BOOTSTRAP_BUTTON_SUCCESS:
+                        $type = 'success';
+					case BOOTSTRAP_BUTTON_DANGER:
+                        $type = 'danger';
+					case BOOTSTRAP_BUTTON_WARNING:
+                        $type = 'warning';
+					case BOOTSTRAP_BUTTON_INFO:
+                        $type = 'info';
+					case BOOTSTRAP_BUTTON_LIGHT:
+                        $type = 'light';
+					case BOOTSTRAP_BUTTON_DARK:
+                        $type = 'dark';
+					case BOOTSTRAP_BUTTON_LINK:
+                    default:
+                        $type = 'link';
+                        break;
                 }
             }
         } else {
-            $type = 'secondary';
+            $type = 'link';
         }
         
         $hint = isset($params['hint']) ? $params['hint'] : '';
 
         $url = isset($params['url']) ? Router::url($params['url']) : '';
 
-        $target = isset($params['new_window']) && $params['new_window'] == '1' ? ' target="_blank"' : '';
+        $target = isset($params['newWindow']) && $params['newWindow'] == '1' ? ' target="_blank"' : '';
         
         if (isset($params['size']) && $params['size'] != '' && $params['size'] != 'md') {
             $size = ' btn-'.$params['size'];
@@ -180,7 +188,7 @@ class Bootstrap
             $class = '';
         }
         $class = ' class="btn btn-'.$type.$size.$class.'"';
-        
+
         $otherAttributes = self::otherAttributes(
             $params,
             array(
@@ -189,7 +197,7 @@ class Bootstrap
                 'type',
                 'hint',
                 'url',
-                'new_window',
+                'newWindow',
                 'size',
                 'confirmation',
                 'id',

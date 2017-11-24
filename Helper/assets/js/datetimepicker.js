@@ -5,9 +5,9 @@ $(document).ready(function() {
 		});
 	});*/
 
-    jQuery.datetimepicker.setLocale('fr');
-    $('.datetimepicker').datetimepicker({
-        format:'Y.m.d H:i:s',
-        lang:'fr'
-    });
+    // jQuery.datetimepicker.setLocale('fr');
+    // $('.datetimepicker').datetimepicker({
+    //     format:'Y.m.d H:i:s',
+    //     lang:'fr'
+    // });
 });
