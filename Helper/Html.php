@@ -3,7 +3,7 @@
 namespace Helper;
 
 use Core\Router;
-use Helper\Datetime;
+use Helper\DatetimeUtils;
 
 class Html
 {
@@ -186,16 +186,18 @@ class Html
                 if (!isset($column['visible']) || $column['visible']) {
                     $dataOrder = '';
                     $dataSearch = '';
-if ($column['name']=='col1' && $row[$column['name']] > 2) {$dataSearch = ' data-search="!!"';}
+                    if ($column['name']=='col1' && $row[$column['name']] > 2) {
+                        $dataSearch = ' data-search="!!"';
+                    }
                     switch ($column['type']) {
                         case 'datetime':
                             $value = $row[$column['name']];
-                            $ts = Datetime::stringToTimestamp($value);
+                            $ts = DatetimeUtils::stringToTimestamp($value);
                             $dataOrder = ' data-order="'.$ts.'"';
                             if (isset($column['format'])) {
-                                $value = Datetime::format($value, $column['format']);
+                                $value = DatetimeUtils::format($value, $column['format']);
                             } else {
-                                $value = Datetime::format($value, FORMAT_DATETIME);
+                                $value = DatetimeUtils::format($value, DatetimeUtils::FORMAT_DATETIME);
                             }
                             break;
                         case 'int':
