@@ -702,24 +702,29 @@ class Form
     {
         $params = self::parseParams($params);
 
-        $type = isset($params['type']) ? $params['type'] : 'datetime';
-        // switch ($type) {
-        //     case 'datetime':
-        //         $format = 'yyyy-dd-mm hh:ii:ss';
-        //         break;
-        //     case 'date':
-        //         $format = 'yyyy-dd-mm';
-        //         break;
-        //     case 'time':
-        //         $format = 'yyyy-dd-mm hh:ii:ss';
-        //         break;
-        // }
+        $format = isset($params['format']) ? $params['format'] : 'Y-m-d H:i:00';
 
-        $otherAttributes = self::otherAttributes($params, array('type'));
+        $type = isset($params['type']) ? $params['type'] : 'datetime';
+        switch ($type) {
+            case 'datetime':
+                $selectDate = "1";
+                $selectTime = "1";
+                break;
+            case 'date':
+                $selectDate = "1";
+                $selectTime = "0";
+                break;
+            case 'time':
+                $selectDate = "0";
+                $selectTime = "1";
+                break;
+        }
+
+        $otherAttributes = self::otherAttributes($params, array('type', 'format'));
 
         $input =
-            '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm" />'.
-            '<input type="text" id="'.$params['id'].'_display" class="form-control form-control-sm '.$params['class'].' datetimepicker" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' />';
+            // '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm" />'.
+            '<input type="text" id="'.$params['id'].'_display" name="'.$params['name'].'" class="form-control form-control-sm '.$params['class'].' datetimepicker" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' data-select-date="'.$selectDate.'" data-select-time="'.$selectTime.'" data-format="'.$format.'" />';
 
         $html = self::formGroup($input, $params);
 
@@ -791,26 +796,6 @@ class Form
                 (self::$noBootstrapCol ? '' : '</div>').
             '</div>'.
             '<div class="clearfix"></div>';
-
-        return $html;
-    }
-
-    /**
-     * Generate input datetimepicker
-     *
-     * @param mixed $params
-     *
-     * @return string
-     */
-    public static function datetimepicker($params = array())
-    {
-        $params = self::parseParams($params);
-
-        $otherAttributes = self::otherAttributes($params);
-
-        $input = '<input type="text" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control datetimepicker form-control-sm'.$params['class'].'" placeholder="'.$params['placeholder'].'"'.$params['readOnly'].$params['autocomplete'].$otherAttributes.' />';
-
-        $html = self::formGroup($input, $params);
 
         return $html;
     }
