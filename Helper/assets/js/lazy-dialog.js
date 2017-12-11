@@ -94,6 +94,7 @@ LazyDialog.prototype.windowResizeEvent = function(event)
         $(".lazy-dialog .lazy-dialog-container").height() -
         $(".lazy-dialog .lazy-dialog-header").outerHeight() -
         $(".lazy-dialog .lazy-dialog-footer").outerHeight();
+
     $(".lazy-dialog .lazy-dialog-body").outerHeight(height);
 }
 
@@ -186,4 +187,14 @@ LazyDialog.prototype.keydown = function(event)
             event.data.lazyDialog.doAction("close");
             break;
     }
+}
+
+LazyDialog.prototype.close = function()
+{
+    this.doAction("close");
+}
+
+LazyDialog.prototype.cancel = function()
+{
+    this.doAction("cancel");
 }

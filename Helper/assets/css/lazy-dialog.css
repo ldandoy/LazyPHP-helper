@@ -31,7 +31,8 @@
 	top: 10px;
 	right: 10px;
 	cursor: pointer;
-	color: #000;	
+	color: #000;
+	z-index: 11000;
 }
 
 .lazy-dialog-close-button:hover {
@@ -39,6 +40,7 @@
 }
 
 .lazy-dialog-body {
+	position: relative;
 	padding: 15px;
 	height: 80%;
 	width: 100%;
