@@ -70,21 +70,31 @@ LazyDialog.prototype.openSuccess = function(data, textStatus, jqXHR) {
             '</div>'+
         '</div>';
 
+    var thisDialogId = "#"+this.id
     $("#"+this.id).remove();
     
     $("body").append($html);
 
-    $(".lazy-dialog-action").on("click", {lazyDialog: this}, this.actionClick);
+    $("#"+this.id+".lazy-dialog .lazy-dialog-action").on("click", {lazyDialog: this}, this.actionClick);
 
-    $(".lazy-dialog").on("keydown", {lazyDialog: this}, this.keydown);
-    $(".lazy-dialog").focus();
+    $("#"+this.id+".lazy-dialog").on("keydown", {lazyDialog: this}, this.keydown);
+
+    $("#"+this.id+".lazy-dialog").on("click", {lazyDialog: this}, this.outsideClick);
+
+    $("#"+this.id+".lazy-dialog").focus();
 
     $(window).on("resize", this.windowResizeEvent.bind(this));
     $(window).trigger("resize");
 
     var context = this.actions.context != null ? this.actions.context : this;
     if (this.actions.load != null) {
-        this.actions.load()/*.call(context)*/;
+        if (Array.isArray(this.actions.load)) {                    
+            for (var i = 0; i < this.actions.load.length; i = i + 1) {
+                this.actions.load[i]()/*.call(context)*/;
+            }
+        } else {
+            this.actions.load()/*.call(context)*/;
+        }
     }
 }
 
@@ -186,6 +196,15 @@ LazyDialog.prototype.keydown = function(event)
         case 27:
             event.data.lazyDialog.doAction("close");
             break;
+    }
+}
+
+LazyDialog.prototype.outsideClick = function(event)
+{
+    if (event.target == event.currentTarget && $(event.currentTarget).hasClass("lazy-dialog")) {
+        event.stopPropagation();
+        event.preventDefault();
+        event.data.lazyDialog.doAction("close");
     }
 }
 
