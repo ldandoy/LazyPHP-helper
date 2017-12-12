@@ -83,7 +83,7 @@ class Form
         }
 
         if (isset($params['help']) && $params['help'] != '') {
-            $p['helpHtml'] = '<div class="help-block">'.$params['help'].'</div>';
+            $p['helpHtml'] = '<small class="form-text text-muted">'.$params['help'].'</small>';
         } else {
             $p['helpHtml'] = '';
         }
