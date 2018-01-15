@@ -23,12 +23,17 @@ $(document).ready(function() {
             format = "Y-m-d H:i:00";
         }
 
+        var step = $element.data("step");
+        if (step == null) {
+            step = 1;
+        }
+
         $(element).datetimepicker({
             lang: 'fr',
             format: format,
             datepicker: selectDate,
             timepicker: selectTime,
-            step: 1,
+            step: step,
             defaultTime: "00:00"
          });
     });

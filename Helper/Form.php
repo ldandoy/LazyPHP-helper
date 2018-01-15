@@ -11,7 +11,7 @@
 
 namespace Helper;
 
-use Datetime;   
+use Datetime;
 
 /**
  * Class gérant les Forms du site
@@ -704,6 +704,8 @@ class Form
 
         $format = isset($params['format']) ? $params['format'] : 'Y-m-d H:i:00';
 
+        $step = isset($params['step']) ? $params['step'] : '5';
+
         $type = isset($params['type']) ? $params['type'] : 'datetime';
         switch ($type) {
             case 'datetime':
@@ -724,7 +726,7 @@ class Form
 
         $input =
             // '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm" />'.
-            '<input type="text" id="'.$params['id'].'_display" name="'.$params['name'].'" class="form-control form-control-sm '.$params['class'].' datetimepicker" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' data-select-date="'.$selectDate.'" data-select-time="'.$selectTime.'" data-format="'.$format.'" />';
+            '<input type="text" id="'.$params['id'].'_display" name="'.$params['name'].'" class="form-control form-control-sm '.$params['class'].' datetimepicker" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' data-select-date="'.$selectDate.'" data-select-time="'.$selectTime.'" data-format="'.$format.'" data-step="'.$step.'" />';
 
         $html = self::formGroup($input, $params);
 
