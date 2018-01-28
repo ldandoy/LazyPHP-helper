@@ -28,6 +28,11 @@ $(document).ready(function() {
             step = 1;
         }
 
+        var mindate = $element.data("mindate");
+        /*if (minDate == null) {
+            minDate = 1;
+        }*/
+
         $(element).datetimepicker({
             lang: 'fr',
             format: format,
