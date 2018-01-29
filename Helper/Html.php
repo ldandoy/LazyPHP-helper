@@ -52,15 +52,25 @@ class Html
     public static function articleslist($params = array())
     {
         $params = self::parseParams($params);
+
         
+                        
         $html = "";
         foreach ($params['articles'] as $k => $article) {
+            if (strlen($article->content)>1000) 
+                {
+                  $comment=substr($article->content, 0, 1000);
+                  $dernier_mot=strrpos($comment," ");
+                  $comment=substr($comment,0,$dernier_mot);
+                }
+
+
             $html .= '<div class="row">';
             $html .= '<div class="col-lg-12">';
             $html .= '<h2>'.$article->title.'</h2>';
             $html .= '</div>';
             $html .= '<div class="col-lg-12">';
-            $html .= '<p>'.$article->content.'</p>';
+            $html .= '<p>'. $comment .'</p>';
             $html .= '<p align="right"><a href="/article/'.$article->id.'">Lire plus &rarr;</a></p>';
             $html .= '</div>';
             $html .= '</div>';
