@@ -52,14 +52,13 @@ class Html
     public static function articleslist($params = array())
     {
         $params = self::parseParams($params);
-
-        
-                        
+     
         $html = "";
         foreach ($params['articles'] as $k => $article) {
-            if (strlen($article->content)>1000) 
+
+        if (strlen($article->hooked)>1000) 
                 {
-                  $comment=substr($article->content, 0, 1000);
+                  $comment=substr($article->hooked, 0, 1000);
                   $dernier_mot=strrpos($comment," ");
                   $comment=substr($comment,0,$dernier_mot);
                 }
@@ -76,6 +75,8 @@ class Html
             $html .= '</div>';
             if ($k+1 != count($params['articles'])) {
                 $html .= '<hr />';
+
+
             }
         }
 
