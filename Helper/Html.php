@@ -17,7 +17,7 @@ class Html
     private static function parseParams($params = array())
     {
         $p = array();
-        
+
         $p['id'] = isset($params['id']) ? ' id="'.$params['id'].'"' : '';
 
         $p['class'] = isset($params['class']) ? ' class="'.$params['class'].'"' : '';
@@ -52,29 +52,23 @@ class Html
     public static function articleslist($params = array())
     {
         $params = self::parseParams($params);
-     
+
         $html = "";
         foreach ($params['articles'] as $k => $article) {
-
             if ($article->hooked != null) {
-                //Variable qui va contenir le texte qui sera affiché en guise d'accroche 
+                //Variable qui va contenir le texte qui sera affiché en guise d'accroche
                 $summary = $article->hooked;
             } else {
                 $summary = $article->content;
             }
 
-            if (strlen($summary) > 1000) 
-                {
-                  $comment= substr($summary, 0, 1000); 
-                  $last_word=strrpos($comment," ");
-                  $comment==substr($comment,0,$last_word);
-                }
-            else {
+            if (strlen($summary) > 1000) {
+                $comment= substr($summary, 0, 1000);
+                $last_word=strrpos($comment," ");
+                $comment==substr($comment,0,$last_word);
+            } else {
                 $comment=$summary;
             }
-
-
-
 
             $html .= '<div class="row">';
             $html .= '<div class="col-lg-12">';
@@ -85,10 +79,9 @@ class Html
             $html .= '<p align="right"><a href="/article/'.$article->id.'">Lire plus &rarr;</a></p>';
             $html .= '</div>';
             $html .= '</div>';
+            
             if ($k+1 != count($params['articles'])) {
                 $html .= '<hr />';
-
-
             }
         }
 
