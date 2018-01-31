@@ -67,7 +67,7 @@ class Html
                 {
                   $comment= substr($summary, 0, 1000); 
                   $last_word=strrpos($comment," ");
-                  $comment==substr($comment,0,$last_word);
+                  $comment=substr($comment,0,$last_word);
                 }
             else {
                 $comment=$summary;
