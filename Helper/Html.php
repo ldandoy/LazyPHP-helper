@@ -56,12 +56,24 @@ class Html
         $html = "";
         foreach ($params['articles'] as $k => $article) {
 
-        if (strlen($article->hooked)>1000) 
+            if ($article->hooked != null) {
+                //Variable qui va contenir le texte qui sera affiché en guise d'accroche 
+                $summary = $article->hooked;
+            } else {
+                $summary = $article->content;
+            }
+
+            if (strlen($summary) > 1000) 
                 {
-                  $comment=substr($article->hooked, 0, 1000);
-                  $dernier_mot=strrpos($comment," ");
-                  $comment=substr($comment,0,$dernier_mot);
+                  $comment= substr($summary, 0, 1000); 
+                  $last_word=strrpos($comment," ");
+                  $comment==substr($comment,0,$last_word);
                 }
+            else {
+                $comment=$summary;
+            }
+
+
 
 
             $html .= '<div class="row">';
