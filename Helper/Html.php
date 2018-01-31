@@ -62,6 +62,7 @@ class Html
                 $summary = $article->content;
             }
 
+
             if (strlen($summary) > 1000) {
                 $comment= substr($summary, 0, 1000);
                 $last_word=strrpos($comment," ");
@@ -79,7 +80,7 @@ class Html
             $html .= '<p align="right"><a href="/article/'.$article->id.'">Lire plus &rarr;</a></p>';
             $html .= '</div>';
             $html .= '</div>';
-            
+
             if ($k+1 != count($params['articles'])) {
                 $html .= '<hr />';
             }
