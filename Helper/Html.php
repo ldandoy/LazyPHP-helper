@@ -56,7 +56,7 @@ class Html
         $html = "";
         foreach ($params['articles'] as $k => $article) {
             if ($article->hooked != null) {
-                //Variable qui va contenir le texte qui sera affiché en guise d'accroche
+                // Variable qui va contenir le texte qui sera affiché en guise d'accroche
                 $summary = $article->hooked;
             } else {
                 $summary = $article->content;
