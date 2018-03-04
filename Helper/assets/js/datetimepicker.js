@@ -39,7 +39,10 @@ $(document).ready(function() {
             datepicker: selectDate,
             timepicker: selectTime,
             step: step,
-            defaultTime: "00:00"
+            defaultTime: "00:00",
+            dayOfWeekStart: 1,
+            startDate: new Date(),
+            minDate: 0
          });
     });
 });
