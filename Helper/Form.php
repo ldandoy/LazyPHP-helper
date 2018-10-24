@@ -708,6 +708,8 @@ class Form
 
         $mindate = isset($params['mindate']) ? $params['mindate'] : null;
 
+        $startdate = isset($params['startdate']) ? $params['startdate'] : null;
+
         $type = isset($params['type']) ? $params['type'] : 'datetime';
         switch ($type) {
             case 'datetime':
@@ -728,7 +730,7 @@ class Form
 
         $input =
             // '<input type="hidden" id="'.$params['id'].'" name="'.$params['name'].'" value="'.$params['value'].'" class="form-control form-control-sm" />'.
-            '<input type="text" id="'.$params['id'].'_display" name="'.$params['name'].'" class="form-control form-control-sm '.$params['class'].' datetimepicker" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' data-select-date="'.$selectDate.'" data-select-time="'.$selectTime.'" data-format="'.$format.'" data-mindate="'.$mindate.'" data-step="'.$step.'" />';
+            '<input type="text" id="'.$params['id'].'_display" name="'.$params['name'].'" class="form-control form-control-sm '.$params['class'].' datetimepicker" value="'.$params['value'].'" readonly="readonly"'.$otherAttributes.' data-select-date="'.$selectDate.'" data-select-time="'.$selectTime.'" data-format="'.$format.'" data-mindate="'.$mindate.'" data-startdate="'.$startdate.'" data-step="'.$step.'" />';
 
         $html = self::formGroup($input, $params);
 

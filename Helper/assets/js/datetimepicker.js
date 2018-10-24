@@ -28,21 +28,49 @@ $(document).ready(function() {
             step = 1;
         }
 
-        var mindate = $element.data("mindate");
-        /*if (minDate == null) {
-            minDate = 1;
-        }*/
+        var startDate = $element.data("startdate");
+        console.log(startDate);
+        if (typeof startDate !== undefined) {
+            if(startDate == "") {
+                startDate = new Date();
+                $(element).datetimepicker({
+                    lang: 'fr',
+                    format: format,
+                    datepicker: selectDate,
+                    timepicker: selectTime,
+                    step: step,
+                    defaultTime: "00:00",
+                    dayOfWeekStart: 1,
+                    startDate: startDate,
+                });
+            } else {
+                startDate = "+1971/05/01";
+                $(element).datetimepicker({
+                    lang: 'fr',
+                    format: format,
+                    datepicker: selectDate,
+                    timepicker: selectTime,
+                    step: step,
+                    defaultTime: "00:00",
+                    dayOfWeekStart: 1,
+                    startDate: startDate,
+                    minDate: 0
+                });
+            }
+        } else {
+            startDate = new Date();
+            $(element).datetimepicker({
+                lang: 'fr',
+                format: format,
+                datepicker: selectDate,
+                timepicker: selectTime,
+                step: step,
+                defaultTime: "00:00",
+                dayOfWeekStart: 1,
+                startDate: startDate,
+            });
+        }
 
-        $(element).datetimepicker({
-            lang: 'fr',
-            format: format,
-            datepicker: selectDate,
-            timepicker: selectTime,
-            step: step,
-            defaultTime: "00:00",
-            dayOfWeekStart: 1,
-            startDate: new Date(),
-            minDate: 0
-         });
+        
     });
 });
